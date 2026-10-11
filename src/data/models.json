@@ -224,9 +224,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 0.14,
-        "cachedInputPerM": 0.014,
-        "outputPerM": 0.28,
+        "inputPerM": 0.259,
+        "cachedInputPerM": 0.14,
+        "outputPerM": 0.8,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/deepseek/deepseek-chat"
       },
@@ -303,10 +303,11 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 0.55,
-        "outputPerM": 2.19,
+        "inputPerM": 0.5,
+        "outputPerM": 2.15,
         "status": "active",
-        "outboundUrl": "https://openrouter.ai/deepseek/deepseek-r1"
+        "outboundUrl": "https://openrouter.ai/deepseek/deepseek-r1",
+        "cachedInputPerM": 0.35
       },
       {
         "creator": "deepseek",
@@ -451,9 +452,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 15,
+        "inputPerM": 150,
         "cachedInputPerM": 7.5,
-        "outputPerM": 60,
+        "outputPerM": 600,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/openai/o1"
       }
@@ -933,7 +934,7 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 0.35,
+        "inputPerM": 0.36,
         "outputPerM": 0.4,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/qwen/qwen-2.5-72b-instruct"
@@ -976,8 +977,8 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 0.07,
-        "outputPerM": 0.16,
+        "inputPerM": 0.66,
+        "outputPerM": 1,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/qwen/qwen-2.5-coder-32b-instruct"
       }
@@ -1164,10 +1165,11 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 2,
-        "outputPerM": 6,
+        "inputPerM": 0.5,
+        "outputPerM": 1.5,
         "status": "active",
-        "outboundUrl": "https://openrouter.ai/mistralai/mistral-large"
+        "outboundUrl": "https://openrouter.ai/mistralai/mistral-large",
+        "cachedInputPerM": 0.05
       }
     ],
     "status": "active",
@@ -1597,9 +1599,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 0.17,
+        "inputPerM": 0.1,
         "cachedInputPerM": 0.085,
-        "outputPerM": 0.25,
+        "outputPerM": 0.15,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/alibaba/qwen3.5-9b"
       }
@@ -2038,9 +2040,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 0.29,
+        "inputPerM": 0.08,
         "cachedInputPerM": 0.145,
-        "outputPerM": 0.59,
+        "outputPerM": 0.28,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/alibaba/qwen/qwen3-32b"
       }
@@ -2479,9 +2481,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 0.6,
-        "cachedInputPerM": 0.35,
-        "outputPerM": 3.6,
+        "inputPerM": 0.55,
+        "cachedInputPerM": 0.225,
+        "outputPerM": 3.5,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/alibaba/qwen3.5-397b-a17b"
       }
@@ -2689,9 +2691,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 1.2,
+        "inputPerM": 0.36,
         "cachedInputPerM": 0.6,
-        "outputPerM": 1.2,
+        "outputPerM": 0.4,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/alibaba/qwen-2.5-72b"
       }
@@ -3012,7 +3014,7 @@
         "hostName": "OpenRouter",
         "hostType": "aggregator",
         "inputPerM": 2,
-        "cachedInputPerM": 0.2,
+        "cachedInputPerM": 0.1,
         "outputPerM": 10,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/anthropic/claude-sonnet-5"
@@ -3186,9 +3188,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 5,
-        "cachedInputPerM": 0.5,
-        "outputPerM": 25,
+        "inputPerM": 4,
+        "cachedInputPerM": 0.2,
+        "outputPerM": 20,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/anthropic/claude-opus-5"
       }
@@ -3397,7 +3399,7 @@
         "hostName": "OpenRouter",
         "hostType": "aggregator",
         "inputPerM": 10,
-        "cachedInputPerM": 1,
+        "cachedInputPerM": 0.25,
         "outputPerM": 50,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/anthropic/claude-fable-5"
@@ -3501,9 +3503,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 15,
-        "cachedInputPerM": 1.5,
-        "outputPerM": 75,
+        "inputPerM": 5,
+        "cachedInputPerM": 0.5,
+        "outputPerM": 25,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/anthropic/claude-opus-4"
       }
@@ -4040,9 +4042,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 0.15,
-        "cachedInputPerM": 0.003,
-        "outputPerM": 0.6,
+        "inputPerM": 0.2156,
+        "cachedInputPerM": 0.0069,
+        "outputPerM": 0.6468,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/deepseek/deepseek-v4-flash"
       }
@@ -4262,9 +4264,9 @@
     "isFlagship": false,
     "isCheapestInTier": false,
     "officialPricing": {
-      "inputPerM": 0.25,
+      "inputPerM": 0.272,
       "cachedInputPerM": 0.025,
-      "outputPerM": 1.5
+      "outputPerM": 1.631
     },
     "hostingOffers": [
       {
@@ -4404,9 +4406,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 0.39,
-        "cachedInputPerM": 0.195,
-        "outputPerM": 0.97,
+        "inputPerM": 0.09,
+        "cachedInputPerM": 0.05,
+        "outputPerM": 0.34,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/google/gemma-4-31b-it"
       }
@@ -4614,9 +4616,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 1.5,
-        "cachedInputPerM": 0.15,
-        "outputPerM": 9,
+        "inputPerM": 0.3,
+        "cachedInputPerM": 0.03,
+        "outputPerM": 2.5,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/google/gemini-3.5-flash"
       }
@@ -5076,9 +5078,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 0.15,
-        "cachedInputPerM": 0.075,
-        "outputPerM": 0.6,
+        "inputPerM": 0.1875,
+        "cachedInputPerM": 0.05,
+        "outputPerM": 0.6525,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/meta/llama-4-maverick"
       }
@@ -5237,9 +5239,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 3.5,
+        "inputPerM": 1,
         "cachedInputPerM": 1.75,
-        "outputPerM": 3.5,
+        "outputPerM": 1,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/meta/llama-3.1-405b"
       }
@@ -5287,7 +5289,7 @@
         "hostName": "OpenRouter",
         "hostType": "aggregator",
         "inputPerM": 0.3,
-        "cachedInputPerM": 0.15,
+        "cachedInputPerM": 0.06,
         "outputPerM": 1.2,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/minimax/minimax-m3"
@@ -5363,9 +5365,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 0.3,
-        "cachedInputPerM": 0.06,
-        "outputPerM": 1.2,
+        "inputPerM": 0.27,
+        "cachedInputPerM": 0.027,
+        "outputPerM": 1.08,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/minimax/minimax-m2.5"
       }
@@ -5426,9 +5428,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 0.3,
-        "cachedInputPerM": 0.06,
-        "outputPerM": 1.2,
+        "inputPerM": 0.21,
+        "cachedInputPerM": 0.042,
+        "outputPerM": 0.84,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/minimax/minimax-m2.7"
       }
@@ -5937,9 +5939,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 0.4,
+        "inputPerM": 1.5,
         "cachedInputPerM": 0.2,
-        "outputPerM": 2,
+        "outputPerM": 7.5,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/mistral/mistral-medium-3"
       }
@@ -6021,9 +6023,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 0.5,
-        "cachedInputPerM": 0.05,
-        "outputPerM": 1.5,
+        "inputPerM": 0.68,
+        "cachedInputPerM": 0.07,
+        "outputPerM": 2.09,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/mistral/mistral-large"
       }
@@ -6162,7 +6164,7 @@
         "hostName": "OpenRouter",
         "hostType": "aggregator",
         "inputPerM": 2,
-        "cachedInputPerM": 1,
+        "cachedInputPerM": 0.2,
         "outputPerM": 6,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/mistral/mixtral-8x22b"
@@ -6455,9 +6457,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 0.95,
-        "cachedInputPerM": 0.19,
-        "outputPerM": 4,
+        "inputPerM": 0.6712,
+        "cachedInputPerM": 0.18,
+        "outputPerM": 3.35,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/moonshot/kimi-k2.7-code"
       }
@@ -6518,9 +6520,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 1.2,
-        "cachedInputPerM": 0.2,
-        "outputPerM": 4.5,
+        "inputPerM": 0.65,
+        "cachedInputPerM": 0.15,
+        "outputPerM": 3.41,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/moonshot/kimi-k2.6"
       }
@@ -6581,9 +6583,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 3,
-        "cachedInputPerM": 0.3,
-        "outputPerM": 15,
+        "inputPerM": 0.8,
+        "cachedInputPerM": 0.55,
+        "outputPerM": 10,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/moonshot/kimi-k3"
       }
@@ -6728,9 +6730,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 0.075,
-        "cachedInputPerM": 0.0375,
-        "outputPerM": 0.3,
+        "inputPerM": 0.018,
+        "cachedInputPerM": 0.009,
+        "outputPerM": 0.09,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/openai/openai/gpt-oss-20b"
       }
@@ -6861,9 +6863,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 0.15,
+        "inputPerM": 0.037,
         "cachedInputPerM": 0.075,
-        "outputPerM": 0.6,
+        "outputPerM": 0.17,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/openai/openai/gpt-oss-120b"
       }
@@ -7036,9 +7038,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 0.5,
+        "inputPerM": 1,
         "cachedInputPerM": 0.25,
-        "outputPerM": 1.5,
+        "outputPerM": 2,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/openai/gpt-3.5-turbo"
       }
@@ -7211,9 +7213,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 1.25,
-        "cachedInputPerM": 0.125,
-        "outputPerM": 10,
+        "inputPerM": 0.2,
+        "cachedInputPerM": 0.02,
+        "outputPerM": 1.2,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/openai/gpt-5"
       }
@@ -7421,9 +7423,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 2,
+        "inputPerM": 20,
         "cachedInputPerM": 0.5,
-        "outputPerM": 8,
+        "outputPerM": 80,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/openai/o3"
       }
@@ -7526,8 +7528,8 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 2.5,
-        "cachedInputPerM": 0.25,
+        "inputPerM": 8,
+        "cachedInputPerM": 2,
         "outputPerM": 15,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/openai/gpt-5.4"
@@ -7561,9 +7563,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 4,
-        "cachedInputPerM": 0.4,
-        "outputPerM": 20,
+        "inputPerM": 2,
+        "cachedInputPerM": 0.2,
+        "outputPerM": 10,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/openai/gpt-5.6-sol"
       }
@@ -7596,9 +7598,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 5,
+        "inputPerM": 30,
         "cachedInputPerM": 0.5,
-        "outputPerM": 30,
+        "outputPerM": 180,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/openai/gpt-5.5"
       }
@@ -8016,9 +8018,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 1,
+        "inputPerM": 3,
         "cachedInputPerM": 0.5,
-        "outputPerM": 1,
+        "outputPerM": 15,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/perplexity/sonar"
       }
@@ -8898,9 +8900,9 @@
         "hostId": "openrouter",
         "hostName": "OpenRouter",
         "hostType": "aggregator",
-        "inputPerM": 1.4,
-        "cachedInputPerM": 0.26,
-        "outputPerM": 4.4,
+        "inputPerM": 0.966,
+        "cachedInputPerM": 0.1794,
+        "outputPerM": 3.036,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/zhipu/glm-5.1"
       }
