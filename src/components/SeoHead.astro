@@ -1,0 +1,205 @@
+---
+import type { ModelRecord } from '../data/types';
+
+interface FaqItem {
+  q: string;
+  a: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  type?: 'website' | 'article';
+  faqItems?: FaqItem[];
+  models?: ModelRecord[];
+  isDataset?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalUrl = Astro.url.href,
+  ogImage = '/og-image.png',
+  type = 'website',
+  faqItems = [],
+  models = [],
+  isDataset = false,
+} = Astro.props;
+
+const siteUrl = 'https://apipricecompare.com';
+const formattedDate = new Date().toISOString().split('T')[0];
+---
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="canonical" href={canonicalUrl} />
+
+  <!-- Primary Meta Tags -->
+  <title>{title}</title>
+  <meta name="title" content={title} />
+  <meta name="description" content={description} />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content={type} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`} />
+  <meta property="og:site_name" content="APIPriceCheck" />
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image" />
+  <meta property="twitter:url" content={canonicalUrl} />
+  <meta property="twitter:title" content={title} />
+  <meta property="twitter:description" content={description} />
+  <meta property="twitter:image" content={ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`} />
+
+  <!-- Dark Mode Script (Executed before render to avoid flash) -->
+  <script is:inline>
+    (function () {
+      const theme = localStorage.getItem('theme');
+      if (
+        theme === 'dark' ||
+        (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)
+      ) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+
+  <!-- JSON-LD: 1. Organization & WebSite -->
+  <script
+    type="application/ld+json"
+    set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Organization',
+          '@id': `${siteUrl}/#organization`,
+          name: 'APIPriceCheck',
+          url: siteUrl,
+          description:
+            'Independent AI API pricing calculator and real-time comparison engine tracking official vs aggregator token costs.',
+          knowsAbout: [
+            'AI API Pricing',
+            'LLM Token Cost Calculator',
+            'OpenAI API Pricing',
+            'DeepSeek Pricing',
+            'Claude API Pricing',
+            'OpenRouter Aggregator Discounts',
+          ],
+        },
+        {
+          '@type': 'WebSite',
+          '@id': `${siteUrl}/#website`,
+          name: 'APIPriceCheck',
+          url: siteUrl,
+          dateModified: formattedDate,
+          publisher: { '@id': `${siteUrl}/#organization` },
+          potentialAction: {
+            '@type': 'SearchAction',
+            target: `${siteUrl}/?q={search_term_string}`,
+            'query-input': 'required name=search_term_string',
+          },
+        },
+      ],
+    })}
+  />
+
+  <!-- JSON-LD: 2. FAQPage Schema (PAA 富媒体摘要) -->
+  {
+    faqItems.length > 0 && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: faqItems.map((item) => ({
+            '@type': 'Question',
+            name: item.q,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: item.a,
+            },
+          })),
+        })}
+      />
+    )
+  }
+
+  <!-- JSON-LD: 3. Product & Offer Schema (针对模型列表与详情) -->
+  {
+    models.length > 0 && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify({
+          '@context': 'https://schema.org',
+          '@graph': models.map((m) => ({
+            '@type': 'Product',
+            name: m.name,
+            description: m.description,
+            brand: { '@type': 'Brand', name: m.providerName },
+            offers: [
+              {
+                '@type': 'Offer',
+                name: `${m.name} Input Tokens (1M)`,
+                priceCurrency: 'USD',
+                price: m.officialPricing.inputPerM.toString(),
+                eligibleQuantity: {
+                  '@type': 'QuantitativeValue',
+                  value: 1000000,
+                  unitText: 'tokens',
+                },
+              },
+              {
+                '@type': 'Offer',
+                name: `${m.name} Output Tokens (1M)`,
+                priceCurrency: 'USD',
+                price: m.officialPricing.outputPerM.toString(),
+                eligibleQuantity: {
+                  '@type': 'QuantitativeValue',
+                  value: 1000000,
+                  unitText: 'tokens',
+                },
+              },
+            ],
+          })),
+        })}
+      />
+    )
+  }
+
+  <!-- JSON-LD: 4. Dataset Schema (开放数据集声明) -->
+  {
+    isDataset && (
+      <script
+        type="application/ld+json"
+        set:html={JSON.stringify({
+          '@context': 'https://schema.org',
+          '@type': 'Dataset',
+          name: 'Global AI API Pricing Dataset (Daily Verified)',
+          description:
+            'Standardized JSON dataset of input, cached, and output token costs across official LLM providers and aggregators.',
+          url: `${siteUrl}/api/pricing.json`,
+          dateModified: formattedDate,
+          license: 'https://creativecommons.org/licenses/by/4.0/',
+          creator: { '@id': `${siteUrl}/#organization` },
+          distribution: [
+            {
+              '@type': 'DataDownload',
+              encodingFormat: 'application/json',
+              contentUrl: `${siteUrl}/api/pricing.json`,
+            },
+          ],
+        })}
+      />
+    )
+  }
+</head>

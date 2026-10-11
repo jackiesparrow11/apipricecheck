@@ -1,0 +1,85 @@
+---
+// src/components/NewsletterModal.astro
+---
+
+<aside
+  id="newsletter-floating"
+  class="fixed bottom-4 right-4 z-50 hidden w-[min(24rem,calc(100vw-2rem))] rounded-2xl border border-slate-200 bg-white/95 p-5 shadow-2xl backdrop-blur-md opacity-0 translate-y-4 transition-all duration-300 dark:border-slate-800 dark:bg-slate-900/95"
+  aria-label="Weekly AI pricing newsletter signup"
+>
+  <div class="flex items-start justify-between gap-3">
+    <div>
+      <span class="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400">
+        <span class="h-1.5 w-1.5 rounded-full bg-brand-500"></span>
+        Weekly Brief
+      </span>
+      <h3 class="mt-0.5 text-sm font-bold text-slate-900 dark:text-white">
+        Track AI API Price Cuts
+      </h3>
+      <p class="mt-1 text-xs leading-relaxed text-slate-500 dark:text-slate-400">
+        Get weekly alerts on model price drops, new open-weights releases, and aggregator discounts.
+      </p>
+    </div>
+    <button
+      id="newsletter-close-btn"
+      type="button"
+      class="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-lg text-slate-400 hover:bg-slate-100 hover:text-slate-600 dark:hover:bg-slate-800 dark:hover:text-slate-200 transition"
+      aria-label="Close newsletter"
+    >
+      <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <form id="newsletter-form" class="mt-3 flex flex-col gap-2" onsubmit="event.preventDefault(); alert('Thank you for subscribing to weekly AI pricing updates!'); document.getElementById('newsletter-floating').classList.add('hidden');">
+    <!-- Honeypot anti-spam -->
+    <input type="text" name="website_trap" tabindex="-1" autocomplete="off" class="hidden" />
+
+    <input
+      type="email"
+      required
+      placeholder="engineer@company.com"
+      class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-xs text-slate-900 placeholder-slate-400 focus:border-brand-500 focus:outline-none focus:ring-1 focus:ring-brand-500 dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+    />
+    <button
+      type="submit"
+      class="w-full rounded-xl bg-brand-600 py-2 text-xs font-bold text-white hover:bg-brand-500 transition shadow-sm"
+    >
+      Get Free Price Alerts
+    </button>
+  </form>
+</aside>
+
+<script is:inline>
+  (function () {
+    const DISMISS_KEY = 'apipc_newsletter_dismissed_until';
+    const DISMISS_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days
+
+    const dismissedUntil = localStorage.getItem(DISMISS_KEY);
+    if (dismissedUntil && Number(dismissedUntil) > Date.now()) {
+      return;
+    }
+
+    const modal = document.getElementById('newsletter-floating');
+    const closeBtn = document.getElementById('newsletter-close-btn');
+
+    if (modal) {
+      // 12 秒延迟弹出，不干扰早期阅读
+      setTimeout(() => {
+        modal.classList.remove('hidden');
+        requestAnimationFrame(() => {
+          modal.classList.remove('opacity-0', 'translate-y-4');
+        });
+      }, 12000);
+
+      if (closeBtn) {
+        closeBtn.addEventListener('click', () => {
+          modal.classList.add('opacity-0', 'translate-y-4');
+          setTimeout(() => modal.classList.add('hidden'), 300);
+          localStorage.setItem(DISMISS_KEY, String(Date.now() + DISMISS_DURATION));
+        });
+      }
+    }
+  })();
+</script>

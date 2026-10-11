@@ -1,0 +1,125 @@
+---
+import Layout from '../layouts/Layout.astro';
+import TokenCalculator from '../components/TokenCalculator';
+import PricingTable from '../components/PricingTable';
+import FaqSection from '../components/FaqSection.astro';
+import { getAllModels } from '../data/models';
+
+const models = getAllModels();
+const todayDate = new Date().toISOString().split('T')[0];
+
+const faqItems = [
+  {
+    q: 'What is the cheapest LLM API currently available in 2026?',
+    a: 'The cheapest production-grade model is Llama 3.1 8B Instruct (via DeepInfra / OpenRouter) at $0.02 per million input tokens. Among frontier models, DeepSeek V3 is the price-performance leader at $0.14/1M input and $0.28/1M output, followed by GPT-4o mini at $0.15/1M input.',
+  },
+  {
+    q: 'How does official provider pricing compare with aggregators like OpenRouter?',
+    a: 'While proprietary models (like GPT-4o or Claude 3.5) generally match official rates on aggregators, open-weights models (DeepSeek V3, Llama 3.3 70B, Qwen 2.5) frequently feature 15% to 40% lower token pricing on hosting aggregators (such as DeepInfra, Together AI, or Fireworks) compared to hyperscalers.',
+  },
+  {
+    q: 'How does Prompt Caching impact my actual AI API bill?',
+    a: 'Prompt Caching allows providers to store repeated context (e.g. system instructions, document grounding) in memory. Cache hits reduce input costs by 50% on OpenAI (GPT-4o) and up to 90% on Anthropic (Claude 3.5 Sonnet: $0.30/1M cached vs $3.00/1M fresh) and DeepSeek ($0.014/1M cached).',
+  },
+  {
+    q: 'How does this token cost calculator compute monthly estimates?',
+    a: 'Our calculator uses the exact formula: (Input Tokens × (1 - Cache Rate) × P_in + Input Tokens × Cache Rate × P_cache + Output Tokens × P_out) / 1,000,000 × Daily Calls × 30. We evaluate both official direct endpoints and best-available aggregator endpoints.',
+  },
+  {
+    q: 'Are the token prices updated daily?',
+    a: 'Yes. Our automated ingestion pipeline checks official documentation and OpenRouter API endpoints daily. Price reductions or newly released models are synchronized within hours.',
+  },
+  {
+    q: 'Can I download the raw AI pricing dataset?',
+    a: 'Yes, we provide an open, standardized JSON endpoint at /api/pricing.json with CC-BY 4.0 license for developer and research use.',
+  },
+];
+---
+
+<Layout
+  title="AI API Pricing Calculator & Comparison — Calculate Your API Costs"
+  description="Compare official vs aggregator LLM token prices across 300+ models. Calculate monthly AI API budgets with Prompt Caching discounts, DeepSeek V3, Claude 3.5 & GPT-4o."
+  faqItems={faqItems}
+  models={models}
+  isDataset={true}
+>
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 px-4 pt-16 pb-20 text-white sm:px-6 lg:px-8">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(20,184,166,0.18),rgba(255,255,255,0))]"></div>
+    <div class="relative mx-auto max-w-5xl text-center">
+      <!-- Live Freshness Badge -->
+      <div class="inline-flex items-center gap-2 rounded-full border border-teal-500/30 bg-teal-500/10 px-3.5 py-1 text-xs font-semibold text-teal-300 backdrop-blur-sm">
+        <span class="flex h-2 w-2 rounded-full bg-teal-400 animate-pulse"></span>
+        <span>Daily Verified · Updated {todayDate}</span>
+      </div>
+
+      <h1 class="mt-6 text-3xl font-black tracking-tight sm:text-5xl lg:text-6xl text-white">
+        Calculate AI API Costs <br class="hidden sm:inline" />
+        <span class="bg-gradient-to-r from-teal-400 via-cyan-300 to-emerald-400 bg-clip-text text-transparent">
+          Before the Bill Lands
+        </span>
+      </h1>
+
+      <p class="mx-auto mt-4 max-w-2xl text-sm sm:text-base leading-relaxed text-slate-300">
+        Compare official direct rates against verified aggregators (OpenRouter, DeepInfra, Together AI).
+        Simulate token budgets with Prompt Caching discounts across 300+ frontier and open-weights models.
+      </p>
+
+      <!-- Quick Metrics Pills -->
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-4 text-xs">
+        <div class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm">
+          <span class="text-slate-400">Cheapest Frontier: </span>
+          <strong class="text-teal-300">DeepSeek V3 ($0.14/1M)</strong>
+        </div>
+        <div class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm">
+          <span class="text-slate-400">Coding Standard: </span>
+          <strong class="text-cyan-300">Claude 3.5 Sonnet ($3.00/1M)</strong>
+        </div>
+        <div class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm">
+          <span class="text-slate-400">Ultra-Long Context: </span>
+          <strong class="text-emerald-300">Gemini 2.0 Flash ($0.10/1M)</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 1: Embedded Front-Loaded Calculator (P0 SEO Retention Driver) -->
+  <section class="relative -mt-10 px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-6xl">
+      <TokenCalculator client:load models={models} initialModelId="gpt-4o" embedded={true} />
+    </div>
+  </section>
+
+  <!-- Section 2: Comprehensive Comparison Matrix (Official vs Aggregators) -->
+  <section class="mt-16 px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-6xl">
+      <div class="mb-6 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400">Real-Time Directory</span>
+          <h2 class="text-2xl font-bold tracking-tight text-slate-900 dark:text-white sm:text-3xl">
+            Live AI Model Token Rates
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+            Official list pricing vs. lowest available aggregator rate (OpenRouter &amp; inference clouds).
+          </p>
+        </div>
+
+        <a
+          href="/cheapest-llm-api/"
+          class="inline-flex items-center gap-1 text-xs font-bold text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300"
+        >
+          View Lowest Cost Models &rarr;
+        </a>
+      </div>
+
+      <PricingTable client:load models={models} />
+    </div>
+  </section>
+
+  <!-- Section 3: FAQ Section (PAA Snippets) -->
+  <section class="px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-6xl">
+      <FaqSection items={faqItems} />
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,572 @@
+[
+  {
+    "id": "deepseek-chat",
+    "name": "DeepSeek V3",
+    "family": "DeepSeek",
+    "provider": "deepseek",
+    "providerName": "DeepSeek",
+    "contextWindow": 128000,
+    "maxOutputTokens": 8192,
+    "description": "DeepSeek 671B MoE 基础大模型，代码、推理与通用能力全面媲美主流闭源旗舰，极低调用成本。",
+    "tier": "Low",
+    "isFlagship": true,
+    "isCheapestInTier": true,
+    "officialPricing": {
+      "inputPerM": 0.14,
+      "cachedInputPerM": 0.014,
+      "outputPerM": 0.28
+    },
+    "scheduledPricing": {
+      "peakHoursUtc": ["00:30-08:30"],
+      "peakTier": {
+        "inputPerM": 0.28,
+        "cachedInputPerM": 0.028,
+        "outputPerM": 0.56
+      },
+      "offPeakTier": {
+        "inputPerM": 0.14,
+        "cachedInputPerM": 0.014,
+        "outputPerM": 0.28
+      }
+    },
+    "aggregatorOffers": [
+      {
+        "aggregator": "openrouter",
+        "name": "OpenRouter",
+        "inputPerM": 0.14,
+        "outputPerM": 0.28,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/deepseek/deepseek-chat"
+      },
+      {
+        "aggregator": "deepinfra",
+        "name": "DeepInfra",
+        "inputPerM": 0.13,
+        "outputPerM": 0.26,
+        "status": "active",
+        "outboundUrl": "https://deepinfra.com/deepseek-ai/DeepSeek-V3"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-12-26",
+    "lastVerifiedAt": "2026-10-10"
+  },
+  {
+    "id": "deepseek-reasoner",
+    "name": "DeepSeek R1",
+    "family": "DeepSeek",
+    "provider": "deepseek",
+    "providerName": "DeepSeek",
+    "contextWindow": 128000,
+    "maxOutputTokens": 32768,
+    "description": "强化学习驱动的深度推理大模型，数学、代码与长链逻辑能力对标 OpenAI o1，开源权重。",
+    "tier": "Low",
+    "isFlagship": true,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 0.55,
+      "cachedInputPerM": 0.14,
+      "outputPerM": 2.19
+    },
+    "scheduledPricing": {
+      "peakHoursUtc": ["00:30-08:30"],
+      "peakTier": {
+        "inputPerM": 1.10,
+        "cachedInputPerM": 0.28,
+        "outputPerM": 4.38
+      },
+      "offPeakTier": {
+        "inputPerM": 0.55,
+        "cachedInputPerM": 0.14,
+        "outputPerM": 2.19
+      }
+    },
+    "aggregatorOffers": [
+      {
+        "aggregator": "openrouter",
+        "name": "OpenRouter",
+        "inputPerM": 0.55,
+        "outputPerM": 2.19,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/deepseek/deepseek-r1"
+      },
+      {
+        "aggregator": "together",
+        "name": "Together AI",
+        "inputPerM": 0.55,
+        "outputPerM": 2.19,
+        "status": "active",
+        "outboundUrl": "https://together.ai"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2025-01-20",
+    "lastVerifiedAt": "2026-10-10"
+  },
+  {
+    "id": "gpt-4o",
+    "name": "GPT-4o",
+    "family": "OpenAI",
+    "provider": "openai",
+    "providerName": "OpenAI",
+    "contextWindow": 128000,
+    "maxOutputTokens": 16384,
+    "description": "OpenAI 多模态旗舰模型，兼具高智商与高速响应，全面支持结构化输出与视觉分析。",
+    "tier": "Mid",
+    "isFlagship": true,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 2.50,
+      "cachedInputPerM": 1.25,
+      "outputPerM": 10.00
+    },
+    "aggregatorOffers": [
+      {
+        "aggregator": "openrouter",
+        "name": "OpenRouter",
+        "inputPerM": 2.50,
+        "outputPerM": 10.00,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/openai/gpt-4o"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-05-13",
+    "lastVerifiedAt": "2026-10-10"
+  },
+  {
+    "id": "gpt-4o-mini",
+    "name": "GPT-4o mini",
+    "family": "OpenAI",
+    "provider": "openai",
+    "providerName": "OpenAI",
+    "contextWindow": 128000,
+    "maxOutputTokens": 16384,
+    "description": "超高性价比的小型轻量模型，替代 GPT-3.5 Turbo，适合轻量级 Agent、分类与批量处理。",
+    "tier": "Low",
+    "isFlagship": false,
+    "isCheapestInTier": true,
+    "officialPricing": {
+      "inputPerM": 0.15,
+      "cachedInputPerM": 0.075,
+      "outputPerM": 0.60
+    },
+    "aggregatorOffers": [
+      {
+        "aggregator": "openrouter",
+        "name": "OpenRouter",
+        "inputPerM": 0.15,
+        "outputPerM": 0.60,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/openai/gpt-4o-mini"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-07-18",
+    "lastVerifiedAt": "2026-10-10"
+  },
+  {
+    "id": "o1",
+    "name": "OpenAI o1",
+    "family": "OpenAI",
+    "provider": "openai",
+    "providerName": "OpenAI",
+    "contextWindow": 200000,
+    "maxOutputTokens": 100000,
+    "description": "专为深度推理、复杂数学与高级编程设计的强化学习大模型，生成思维链。",
+    "tier": "High",
+    "isFlagship": true,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 15.00,
+      "cachedInputPerM": 7.50,
+      "outputPerM": 60.00
+    },
+    "aggregatorOffers": [
+      {
+        "aggregator": "openrouter",
+        "name": "OpenRouter",
+        "inputPerM": 15.00,
+        "outputPerM": 60.00,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/openai/o1"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-12-05",
+    "lastVerifiedAt": "2026-10-10"
+  },
+  {
+    "id": "o3-mini",
+    "name": "OpenAI o3-mini",
+    "family": "OpenAI",
+    "provider": "openai",
+    "providerName": "OpenAI",
+    "contextWindow": 200000,
+    "maxOutputTokens": 100000,
+    "description": "高性价比小型推理模型，针对编程、数学与科学任务深度调优，支持低延迟思考模式。",
+    "tier": "Mid",
+    "isFlagship": false,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 1.10,
+      "cachedInputPerM": 0.55,
+      "outputPerM": 4.40
+    },
+    "aggregatorOffers": [
+      {
+        "aggregator": "openrouter",
+        "name": "OpenRouter",
+        "inputPerM": 1.10,
+        "outputPerM": 4.40,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/openai/o3-mini"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2025-01-31",
+    "lastVerifiedAt": "2026-10-10"
+  },
+  {
+    "id": "claude-3-5-sonnet",
+    "name": "Claude 3.5 Sonnet",
+    "family": "Claude",
+    "provider": "anthropic",
+    "providerName": "Anthropic",
+    "contextWindow": 200000,
+    "maxOutputTokens": 8192,
+    "description": "行业代码与复杂 Agent 任务公认黄金标杆，支持 Computer Use 与高级视觉理解。",
+    "tier": "Mid",
+    "isFlagship": true,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 3.00,
+      "cachedInputPerM": 0.30,
+      "outputPerM": 15.00
+    },
+    "aggregatorOffers": [
+      {
+        "aggregator": "openrouter",
+        "name": "OpenRouter",
+        "inputPerM": 3.00,
+        "outputPerM": 15.00,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/anthropic/claude-3.5-sonnet"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-10-22",
+    "lastVerifiedAt": "2026-10-10"
+  },
+  {
+    "id": "claude-3-5-haiku",
+    "name": "Claude 3.5 Haiku",
+    "family": "Claude",
+    "provider": "anthropic",
+    "providerName": "Anthropic",
+    "contextWindow": 200000,
+    "maxOutputTokens": 8192,
+    "description": "极速响应的轻量级 Claude 模型，超越前代 Claude 3 Opus 的速度，适合日常代码辅助。",
+    "tier": "Low",
+    "isFlagship": false,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 0.80,
+      "cachedInputPerM": 0.08,
+      "outputPerM": 4.00
+    },
+    "aggregatorOffers": [
+      {
+        "aggregator": "openrouter",
+        "name": "OpenRouter",
+        "inputPerM": 0.80,
+        "outputPerM": 4.00,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/anthropic/claude-3.5-haiku"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-11-04",
+    "lastVerifiedAt": "2026-10-10"
+  },
+  {
+    "id": "claude-3-opus",
+    "name": "Claude 3 Opus",
+    "family": "Claude",
+    "provider": "anthropic",
+    "providerName": "Anthropic",
+    "contextWindow": 200000,
+    "maxOutputTokens": 4096,
+    "description": "超强语言理解与深度学术写作大模型，擅长超长文本解析与高度复杂战略推理。",
+    "tier": "High",
+    "isFlagship": false,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 15.00,
+      "cachedInputPerM": 1.50,
+      "outputPerM": 75.00
+    },
+    "aggregatorOffers": [
+      {
+        "aggregator": "openrouter",
+        "name": "OpenRouter",
+        "inputPerM": 15.00,
+        "outputPerM": 75.00,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/anthropic/claude-3-opus"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-03-04",
+    "lastVerifiedAt": "2026-10-10"
+  },
+  {
+    "id": "gemini-2-0-flash",
+    "name": "Gemini 2.0 Flash",
+    "family": "Gemini",
+    "provider": "google",
+    "providerName": "Google",
+    "contextWindow": 1048576,
+    "maxOutputTokens": 8192,
+    "description": "百万 Token 超长窗口，次秒级极速多模态生成，超低延迟与低廉单价。",
+    "tier": "Low",
+    "isFlagship": true,
+    "isCheapestInTier": true,
+    "officialPricing": {
+      "inputPerM": 0.10,
+      "cachedInputPerM": 0.025,
+      "outputPerM": 0.40
+    },
+    "aggregatorOffers": [
+      {
+        "aggregator": "openrouter",
+        "name": "OpenRouter",
+        "inputPerM": 0.10,
+        "outputPerM": 0.40,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/google/gemini-2.0-flash-001"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2025-02-05",
+    "lastVerifiedAt": "2026-10-10"
+  },
+  {
+    "id": "gemini-1-5-pro",
+    "name": "Gemini 1.5 Pro",
+    "family": "Gemini",
+    "provider": "google",
+    "providerName": "Google",
+    "contextWindow": 2097152,
+    "maxOutputTokens": 8192,
+    "description": "支持高达 200 万 Token 上下文，可一次性分析数十万行代码库或数小时视频内容。",
+    "tier": "Mid",
+    "isFlagship": false,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 1.25,
+      "cachedInputPerM": 0.3125,
+      "outputPerM": 5.00
+    },
+    "aggregatorOffers": [
+      {
+        "aggregator": "openrouter",
+        "name": "OpenRouter",
+        "inputPerM": 1.25,
+        "outputPerM": 5.00,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/google/gemini-pro-1.5"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-05-14",
+    "lastVerifiedAt": "2026-10-10"
+  },
+  {
+    "id": "llama-3-3-70b-instruct",
+    "name": "Llama 3.3 70B Instruct",
+    "family": "Llama",
+    "provider": "meta",
+    "providerName": "Meta (Hosted)",
+    "contextWindow": 128000,
+    "maxOutputTokens": 4096,
+    "description": "Meta 顶尖开源模型，性能对标前代 405B 模型，各大算力云广泛托管，极高性价比。",
+    "tier": "Low",
+    "isFlagship": true,
+    "isCheapestInTier": true,
+    "officialPricing": {
+      "inputPerM": 0.12,
+      "cachedInputPerM": 0.03,
+      "outputPerM": 0.30
+    },
+    "aggregatorOffers": [
+      {
+        "aggregator": "deepinfra",
+        "name": "DeepInfra",
+        "inputPerM": 0.12,
+        "outputPerM": 0.30,
+        "status": "active",
+        "outboundUrl": "https://deepinfra.com/meta-llama/Llama-3.3-70B-Instruct"
+      },
+      {
+        "aggregator": "together",
+        "name": "Together AI",
+        "inputPerM": 0.13,
+        "outputPerM": 0.32,
+        "status": "active",
+        "outboundUrl": "https://together.ai"
+      },
+      {
+        "aggregator": "openrouter",
+        "name": "OpenRouter",
+        "inputPerM": 0.12,
+        "outputPerM": 0.30,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/meta-llama/llama-3.3-70b-instruct"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-12-06",
+    "lastVerifiedAt": "2026-10-10"
+  },
+  {
+    "id": "llama-3-1-8b-instruct",
+    "name": "Llama 3.1 8B Instruct",
+    "family": "Llama",
+    "provider": "meta",
+    "providerName": "Meta (Hosted)",
+    "contextWindow": 128000,
+    "maxOutputTokens": 4096,
+    "description": "极度轻量低成本模型，输入每百万 Token 仅需 $0.02，适合超高并发与微型嵌入任务。",
+    "tier": "Low",
+    "isFlagship": false,
+    "isCheapestInTier": true,
+    "officialPricing": {
+      "inputPerM": 0.02,
+      "cachedInputPerM": 0.005,
+      "outputPerM": 0.05
+    },
+    "aggregatorOffers": [
+      {
+        "aggregator": "deepinfra",
+        "name": "DeepInfra",
+        "inputPerM": 0.02,
+        "outputPerM": 0.05,
+        "status": "active",
+        "outboundUrl": "https://deepinfra.com/meta-llama/Meta-Llama-3.1-8B-Instruct"
+      },
+      {
+        "aggregator": "openrouter",
+        "name": "OpenRouter",
+        "inputPerM": 0.02,
+        "outputPerM": 0.05,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/meta-llama/llama-3.1-8b-instruct"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-07-23",
+    "lastVerifiedAt": "2026-10-10"
+  },
+  {
+    "id": "qwen-2-5-72b-instruct",
+    "name": "Qwen 2.5 72B Instruct",
+    "family": "Qwen",
+    "provider": "qwen",
+    "providerName": "Alibaba Qwen",
+    "contextWindow": 128000,
+    "maxOutputTokens": 8192,
+    "description": "通义千问开源旗舰大模型，中英双语、数学推理与知识问答综合表现位于开源第一梯队。",
+    "tier": "Low",
+    "isFlagship": true,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 0.20,
+      "cachedInputPerM": 0.05,
+      "outputPerM": 0.60
+    },
+    "aggregatorOffers": [
+      {
+        "aggregator": "openrouter",
+        "name": "OpenRouter",
+        "inputPerM": 0.18,
+        "outputPerM": 0.55,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/qwen/qwen-2.5-72b-instruct"
+      },
+      {
+        "aggregator": "together",
+        "name": "Together AI",
+        "inputPerM": 0.20,
+        "outputPerM": 0.60,
+        "status": "active",
+        "outboundUrl": "https://together.ai"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-09-19",
+    "lastVerifiedAt": "2026-10-10"
+  },
+  {
+    "id": "mistral-large-2407",
+    "name": "Mistral Large 2",
+    "family": "Mistral",
+    "provider": "mistral",
+    "providerName": "Mistral AI",
+    "contextWindow": 128000,
+    "maxOutputTokens": 8192,
+    "description": "Mistral 旗舰 123B 参数模型，精通数十种主流编程语言与多语言国际化场景。",
+    "tier": "Mid",
+    "isFlagship": true,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 2.00,
+      "cachedInputPerM": 1.00,
+      "outputPerM": 6.00
+    },
+    "aggregatorOffers": [
+      {
+        "aggregator": "openrouter",
+        "name": "OpenRouter",
+        "inputPerM": 2.00,
+        "outputPerM": 6.00,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/mistralai/mistral-large-2407"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-07-24",
+    "lastVerifiedAt": "2026-10-10"
+  },
+  {
+    "id": "grok-2",
+    "name": "Grok 2",
+    "family": "xAI",
+    "provider": "xai",
+    "providerName": "xAI",
+    "contextWindow": 131072,
+    "maxOutputTokens": 4096,
+    "description": "xAI 前沿多模态大模型，拥有出色的实时事实检索与幽默智能对话风格。",
+    "tier": "Mid",
+    "isFlagship": true,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 2.00,
+      "cachedInputPerM": 1.00,
+      "outputPerM": 10.00
+    },
+    "aggregatorOffers": [
+      {
+        "aggregator": "openrouter",
+        "name": "OpenRouter",
+        "inputPerM": 2.00,
+        "outputPerM": 10.00,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/x-ai/grok-2"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-08-14",
+    "lastVerifiedAt": "2026-10-10"
+  }
+]

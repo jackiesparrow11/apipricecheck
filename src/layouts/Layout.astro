@@ -1,0 +1,49 @@
+---
+import '../styles/global.css';
+import SeoHead from '../components/SeoHead.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import NewsletterModal from '../components/NewsletterModal.astro';
+import type { ModelRecord } from '../data/types';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  faqItems?: Array<{ q: string; a: string }>;
+  models?: ModelRecord[];
+  isDataset?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonicalUrl,
+  ogImage,
+  faqItems,
+  models,
+  isDataset,
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <SeoHead
+    title={title}
+    description={description}
+    canonicalUrl={canonicalUrl}
+    ogImage={ogImage}
+    faqItems={faqItems}
+    models={models}
+    isDataset={isDataset}
+  />
+  <body class="min-h-screen flex flex-col bg-slate-50/30 text-slate-900 dark:bg-slate-950 dark:text-slate-100 selection:bg-brand-500 selection:text-white">
+    <Header />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+    <NewsletterModal />
+  </body>
+</html>

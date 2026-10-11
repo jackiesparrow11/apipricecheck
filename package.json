@@ -1,0 +1,22 @@
+{
+  "name": "apipricecompare",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "sync-data": "bun run scripts/sync-pricing.ts"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.9.4",
+    "@astrojs/preact": "^4.0.5",
+    "@astrojs/tailwind": "^5.1.5",
+    "astro": "^5.4.2",
+    "preact": "^10.26.4",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.8.2",
+    "zod": "^3.24.2"
+  }
+}
