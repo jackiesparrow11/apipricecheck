@@ -32,6 +32,55 @@ export function getCheapestModels(limit = 10): ModelRecord[] {
   return [...models].sort((a, b) => a.officialPricing.inputPerM - b.officialPricing.inputPerM).slice(0, limit);
 }
 
+export function getTopHomepageModels(limit = 20): ModelRecord[] {
+  const priorityIds = [
+    'claude-3-7-sonnet',
+    'claude-3-5-sonnet',
+    'deepseek-r1',
+    'deepseek-v3',
+    'gpt-4o',
+    'gpt-4o-mini',
+    'o1',
+    'o3-mini',
+    'gemini-2.0-flash',
+    'gemini-1.5-pro',
+    'grok-3',
+    'grok-2',
+    'meta-llama-3.3-70b-instruct',
+    'meta-llama-3.1-8b-instruct',
+    'qwen-2.5-72b-instruct',
+    'qwen-2.5-coder-32b-instruct',
+    'glm-4-plus',
+    'kimi-1.5',
+    'minimax-01',
+    'mistral-large-2411',
+    'codestral-latest',
+    'sonar-pro',
+  ];
+
+  const result: ModelRecord[] = [];
+  const addedIds = new Set<string>();
+
+  for (const id of priorityIds) {
+    const found = models.find((m) => m.id === id);
+    if (found && !addedIds.has(found.id)) {
+      result.push(found);
+      addedIds.add(found.id);
+      if (result.length >= limit) return result;
+    }
+  }
+
+  for (const m of models) {
+    if (m.isFlagship && !addedIds.has(m.id)) {
+      result.push(m);
+      addedIds.add(m.id);
+      if (result.length >= limit) break;
+    }
+  }
+
+  return result;
+}
+
 export function getProvidersList(): ProviderInfo[] {
   const map = new Map<string, { models: ModelRecord[]; name: string; creatorSlug: string }>();
 

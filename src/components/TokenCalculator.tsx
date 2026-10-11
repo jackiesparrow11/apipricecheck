@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'preact/hooks';
+import { useState, useMemo, useEffect } from 'preact/hooks';
 import type { ModelRecord } from '../data/types';
 import { calculateCost } from '../data/models';
 
@@ -9,15 +9,36 @@ interface Props {
 }
 
 export default function TokenCalculator({ models, initialModelId = 'gpt-4o', embedded = false }: Props) {
+  const [calcModels, setCalcModels] = useState<ModelRecord[]>(models);
   const [selectedModelId, setSelectedModelId] = useState(initialModelId);
   const [inputTokens, setInputTokens] = useState(1500);
   const [outputTokens, setOutputTokens] = useState(800);
   const [cacheHitPercent, setCacheHitPercent] = useState(30);
   const [dailyRequests, setDailyRequests] = useState(500);
 
+  // Background fetch full catalog if initially given top flagship models
+  useEffect(() => {
+    if (models.length < 50) {
+      const timer = setTimeout(async () => {
+        try {
+          const res = await fetch('/api/pricing.json');
+          if (res.ok) {
+            const json = await res.json();
+            if (json?.data && Array.isArray(json.data)) {
+              setCalcModels(json.data);
+            }
+          }
+        } catch (e) {
+          console.error('Failed to prefetch calculator models:', e);
+        }
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [models]);
+
   const selectedModel = useMemo(() => {
-    return models.find((m) => m.id === selectedModelId) || models[0];
-  }, [models, selectedModelId]);
+    return calcModels.find((m) => m.id === selectedModelId) || calcModels[0];
+  }, [calcModels, selectedModelId]);
 
   // Single request cost calculation
   const singleCost = useMemo(() => {
@@ -32,10 +53,10 @@ export default function TokenCalculator({ models, initialModelId = 'gpt-4o', emb
   // Smart alternative model recommendation
   const alternativeModel = useMemo(() => {
     if (selectedModel.officialPricing.inputPerM > 1.0) {
-      return models.find((m) => m.id === 'deepseek-v3') || models.find((m) => m.id === 'gpt-4o-mini');
+      return calcModels.find((m) => m.id === 'deepseek-v3') || calcModels.find((m) => m.id === 'gpt-4o-mini');
     }
     return null;
-  }, [models, selectedModel]);
+  }, [calcModels, selectedModel]);
 
   const alternativeMonthlyCost = useMemo(() => {
     if (!alternativeModel) return null;
@@ -69,7 +90,7 @@ export default function TokenCalculator({ models, initialModelId = 'gpt-4o', emb
             onChange={(e) => setSelectedModelId((e.target as HTMLSelectElement).value)}
             className="rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-medium text-slate-900 dark:border-slate-700 dark:bg-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500"
           >
-            {models.map((m) => (
+            {calcModels.map((m) => (
               <option key={m.id} value={m.id}>
                 {m.name} ({m.creatorName || m.providerName}) — ${m.officialPricing.inputPerM}/1M
               </option>

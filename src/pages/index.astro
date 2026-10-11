@@ -3,9 +3,10 @@ import Layout from '../layouts/Layout.astro';
 import TokenCalculator from '../components/TokenCalculator';
 import PricingTable from '../components/PricingTable';
 import FaqSection from '../components/FaqSection.astro';
-import { getAllModels } from '../data/models';
+import { getAllModels, getTopHomepageModels } from '../data/models';
 
-const models = getAllModels();
+const allModels = getAllModels();
+const topModels = getTopHomepageModels(20);
 const todayDate = new Date().toISOString().split('T')[0];
 
 const faqItems = [
@@ -15,11 +16,11 @@ const faqItems = [
   },
   {
     q: 'How does official provider pricing compare with aggregators like OpenRouter?',
-    a: 'While proprietary models (like GPT-4o or Claude 3.5) generally match official rates on aggregators, open-weights models (DeepSeek V3, Llama 3.3 70B, Qwen 2.5) frequently feature 15% to 40% lower token pricing on hosting aggregators (such as DeepInfra, Together AI, or Fireworks) compared to hyperscalers.',
+    a: 'While proprietary models (like GPT-4o or Claude 3.7) generally match official rates on aggregators, open-weights models (DeepSeek V3, Llama 3.3 70B, Qwen 2.5) frequently feature 15% to 40% lower token pricing on hosting aggregators (such as DeepInfra, Together AI, or Fireworks) compared to hyperscalers.',
   },
   {
     q: 'How does Prompt Caching impact my actual AI API bill?',
-    a: 'Prompt Caching allows providers to store repeated context (e.g. system instructions, document grounding) in memory. Cache hits reduce input costs by 50% on OpenAI (GPT-4o) and up to 90% on Anthropic (Claude 3.5 Sonnet: $0.30/1M cached vs $3.00/1M fresh) and DeepSeek ($0.014/1M cached).',
+    a: 'Prompt Caching allows providers to store repeated context (e.g. system instructions, document grounding) in memory. Cache hits reduce input costs by 50% on OpenAI (GPT-4o) and up to 90% on Anthropic (Claude 3.7 Sonnet: $0.30/1M cached vs $3.00/1M fresh) and DeepSeek ($0.014/1M cached).',
   },
   {
     q: 'How does this token cost calculator compute monthly estimates?',
@@ -37,10 +38,10 @@ const faqItems = [
 ---
 
 <Layout
-  title="AI API Pricing Calculator & Comparison — Calculate Your API Costs"
-  description="Compare official vs aggregator LLM token prices across 300+ models. Calculate monthly AI API budgets with Prompt Caching discounts, DeepSeek V3, Claude 3.5 & GPT-4o."
+  title="AI API Pricing Calculator — Compare 300+ LLM Token Rates"
+  description="Compare official & aggregator AI API token prices for 300+ models. Calculate monthly budgets for Claude 3.7, DeepSeek R1, GPT-4o, and Gemini 2.0."
   faqItems={faqItems}
-  models={models}
+  models={topModels}
   isDataset={true}
 >
   <!-- Hero Section -->
@@ -54,9 +55,9 @@ const faqItems = [
       </div>
 
       <h1 class="mt-6 text-3xl font-black tracking-tight sm:text-5xl lg:text-6xl text-white">
-        Calculate AI API Costs <br class="hidden sm:inline" />
+        AI API Pricing Calculator <br class="hidden sm:inline" />
         <span class="bg-gradient-to-r from-teal-400 via-cyan-300 to-emerald-400 bg-clip-text text-transparent">
-          Before the Bill Lands
+          Compare 300+ LLM Token Rates
         </span>
       </h1>
 
@@ -73,7 +74,7 @@ const faqItems = [
         </div>
         <div class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm">
           <span class="text-slate-400">Coding Standard: </span>
-          <strong class="text-cyan-300">Claude 3.5 Sonnet ($3.00/1M)</strong>
+          <strong class="text-cyan-300">Claude 3.7 Sonnet ($3.00/1M)</strong>
         </div>
         <div class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm">
           <span class="text-slate-400">Ultra-Long Context: </span>
@@ -86,7 +87,7 @@ const faqItems = [
   <!-- Section 1: Embedded Front-Loaded Calculator (P0 SEO Retention Driver) -->
   <section class="relative -mt-10 px-4 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-6xl">
-      <TokenCalculator client:load models={models} initialModelId="gpt-4o" embedded={true} />
+      <TokenCalculator client:load models={topModels} initialModelId="gpt-4o" embedded={true} />
     </div>
   </section>
 
@@ -112,7 +113,7 @@ const faqItems = [
         </a>
       </div>
 
-      <PricingTable client:load models={models} />
+      <PricingTable client:load models={topModels} totalModelsCount={allModels.length} hasMoreModels={true} />
     </div>
   </section>
 

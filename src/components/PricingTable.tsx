@@ -1,13 +1,19 @@
-import { useState, useMemo } from 'preact/hooks';
+import { useState, useMemo, useEffect } from 'preact/hooks';
 import type { ModelRecord, HostingOffer } from '../data/types';
 import { providersList } from '../data/providers';
 
 interface Props {
   models: ModelRecord[];
+  totalModelsCount?: number;
   filterProvider?: string;
+  hasMoreModels?: boolean;
 }
 
-export default function PricingTable({ models, filterProvider }: Props) {
+export default function PricingTable({ models, totalModelsCount, filterProvider, hasMoreModels = false }: Props) {
+  const [tableModels, setTableModels] = useState<ModelRecord[]>(models);
+  const [isFullLoaded, setIsFullLoaded] = useState(!hasMoreModels);
+  const [isLoadingFull, setIsLoadingFull] = useState(false);
+
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryFilter, setCategoryFilter] = useState<'all' | 'creator' | 'host'>('all');
   const [selectedProvider, setSelectedProvider] = useState<string>(filterProvider || 'all');
@@ -16,26 +22,65 @@ export default function PricingTable({ models, filterProvider }: Props) {
   const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
   const [expandedModelId, setExpandedModelId] = useState<string | null>(null);
 
+  // Load full directory asynchronously from /api/pricing.json
+  const loadAllModels = async () => {
+    if (isFullLoaded || isLoadingFull) return;
+    setIsLoadingFull(true);
+    try {
+      const res = await fetch('/api/pricing.json');
+      if (res.ok) {
+        const json = await res.json();
+        if (json?.data && Array.isArray(json.data)) {
+          setTableModels(json.data);
+          setIsFullLoaded(true);
+        }
+      }
+    } catch (err) {
+      console.error('Failed to load full pricing directory:', err);
+    } finally {
+      setIsLoadingFull(false);
+    }
+  };
+
+  // Idle background prefetch after 2.5s
+  useEffect(() => {
+    if (!isFullLoaded && hasMoreModels) {
+      const timer = setTimeout(() => {
+        loadAllModels();
+      }, 2500);
+      return () => clearTimeout(timer);
+    }
+  }, [hasMoreModels, isFullLoaded]);
+
+  // Auto-fetch full catalog if user interacts with search or filters
+  useEffect(() => {
+    if (searchQuery.trim() || selectedProvider !== 'all' || selectedTier !== 'all' || categoryFilter !== 'all') {
+      if (!isFullLoaded) {
+        loadAllModels();
+      }
+    }
+  }, [searchQuery, selectedProvider, selectedTier, categoryFilter, isFullLoaded]);
+
   // Extract unique creators and hosting providers present in dataset
   const availableCreators = useMemo(() => {
     const set = new Set<string>();
-    models.forEach((m) => {
+    tableModels.forEach((m) => {
       if (m.creator) set.add(m.creator);
     });
     return Array.from(set);
-  }, [models]);
+  }, [tableModels]);
 
   const availableHosts = useMemo(() => {
     const set = new Set<string>();
-    models.forEach((m) => {
+    tableModels.forEach((m) => {
       m.hostingOffers?.forEach((h) => set.add(h.hostId));
     });
     return Array.from(set);
-  }, [models]);
+  }, [tableModels]);
 
   // Filter and sort models
   const filteredModels = useMemo(() => {
-    return models
+    return tableModels
       .filter((m) => {
         // Text search
         if (searchQuery.trim()) {
@@ -90,7 +135,7 @@ export default function PricingTable({ models, filterProvider }: Props) {
 
         return sortOrder === 'asc' ? valA - valB : valB - valA;
       });
-  }, [models, searchQuery, categoryFilter, selectedProvider, selectedTier, sortBy, sortOrder]);
+  }, [tableModels, searchQuery, categoryFilter, selectedProvider, selectedTier, sortBy, sortOrder]);
 
   const handleSort = (key: 'input' | 'output' | 'context' | 'name') => {
     if (sortBy === key) {
@@ -264,6 +309,24 @@ export default function PricingTable({ models, filterProvider }: Props) {
         </div>
       </div>
 
+      {/* Dynamic Directory Loading Banner */}
+      {!isFullLoaded && (
+        <div className="flex flex-wrap items-center justify-between gap-2 bg-brand-50/80 px-4 py-2.5 text-xs border-y border-brand-100 text-brand-900 dark:bg-brand-950/40 dark:border-brand-900/40 dark:text-brand-200">
+          <span className="flex items-center gap-1.5 font-medium">
+            <span className="inline-block h-2 w-2 rounded-full bg-brand-500 animate-pulse"></span>
+            Showing top 20 flagship models on initial load for instant performance.
+          </span>
+          <button
+            type="button"
+            onClick={loadAllModels}
+            disabled={isLoadingFull}
+            className="rounded-lg bg-brand-600 px-3 py-1 text-xs font-semibold text-white shadow-sm hover:bg-brand-500 disabled:opacity-50 transition"
+          >
+            {isLoadingFull ? 'Loading 375+ Models...' : `Load Full Directory (${totalModelsCount || 375}+ Models)`}
+          </button>
+        </div>
+      )}
+
       {/* Responsive Data Table */}
       <div className="table-container max-h-[720px] overflow-y-auto">
         <table className="w-full text-left border-collapse">
@@ -322,9 +385,12 @@ export default function PricingTable({ models, filterProvider }: Props) {
                       <td className="sticky left-0 z-10 bg-white px-4 py-3 font-medium text-slate-900 shadow-[1px_0_0_0_rgb(226,232,240)] dark:bg-slate-900 dark:text-white dark:shadow-[1px_0_0_0_rgb(51,65,85)]">
                         <div className="flex flex-col">
                           <div className="flex items-center gap-1.5">
-                            <span className="font-bold text-slate-900 dark:text-white">
+                            <a
+                              href={`/pricing/${m.creator || m.provider}/`}
+                              className="font-bold text-slate-900 hover:text-brand-600 dark:text-white dark:hover:text-brand-400 hover:underline"
+                            >
                               {m.name}
-                            </span>
+                            </a>
                             {m.isFlagship && (
                               <span className="rounded bg-brand-100 px-1 py-0.2 text-[9px] font-bold text-brand-700 dark:bg-brand-900/50 dark:text-brand-300 uppercase">
                                 Flagship
@@ -337,9 +403,12 @@ export default function PricingTable({ models, filterProvider }: Props) {
                             )}
                           </div>
                           <div className="flex items-center gap-1.5 mt-0.5">
-                            <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400">
+                            <a
+                              href={`/pricing/${m.creator || m.provider}/`}
+                              className="text-[11px] font-semibold text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200"
+                            >
                               {m.creatorName}
-                            </span>
+                            </a>
                             <span className="text-slate-300 dark:text-slate-700">·</span>
                             <span className="text-[10px] text-slate-400 font-mono">
                               {m.family}
@@ -429,20 +498,28 @@ export default function PricingTable({ models, filterProvider }: Props) {
                       {/* Action */}
                       <td className="px-4 py-3 text-right">
                         {bestOffer ? (
-                          <a
-                            href={bestOffer.outboundUrl}
-                            target="_blank"
-                            rel="noopener sponsored"
-                            className="inline-flex items-center rounded-lg border border-brand-200 bg-brand-50/70 px-2.5 py-1 text-[11px] font-semibold text-brand-700 hover:bg-brand-600 hover:text-white dark:border-brand-800 dark:bg-brand-950/40 dark:text-brand-300 transition"
-                          >
-                            Try API &rarr;
-                          </a>
+                          <div className="flex items-center justify-end gap-1.5">
+                            <a
+                              href={`/pricing/${m.creator || m.provider}/`}
+                              className="inline-flex items-center rounded-lg border border-slate-200 px-2 py-1 text-[10px] font-medium text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 transition"
+                            >
+                              Details
+                            </a>
+                            <a
+                              href={bestOffer.outboundUrl}
+                              target="_blank"
+                              rel="sponsored nofollow noopener"
+                              className="inline-flex items-center rounded-lg border border-brand-200 bg-brand-50/70 px-2.5 py-1 text-[11px] font-semibold text-brand-700 hover:bg-brand-600 hover:text-white dark:border-brand-800 dark:bg-brand-950/40 dark:text-brand-300 transition"
+                            >
+                              Try API &rarr;
+                            </a>
+                          </div>
                         ) : (
                           <a
                             href={`/pricing/${m.creator || m.provider}/`}
                             className="inline-flex items-center rounded-lg border border-slate-200 px-2.5 py-1 text-[11px] font-medium text-slate-600 hover:bg-slate-100 dark:border-slate-700 dark:text-slate-300 transition"
                           >
-                            Details
+                            Details &rarr;
                           </a>
                         )}
                       </td>
@@ -488,7 +565,7 @@ export default function PricingTable({ models, filterProvider }: Props) {
                                   <a
                                     href={h.outboundUrl}
                                     target="_blank"
-                                    rel="noopener sponsored"
+                                    rel="sponsored nofollow noopener"
                                     className="mt-2 text-center rounded bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 py-1 text-[10px] font-semibold text-brand-600 hover:text-brand-700 dark:text-brand-400"
                                   >
                                     Visit Host Console &rarr;
@@ -526,7 +603,17 @@ export default function PricingTable({ models, filterProvider }: Props) {
           </span>
         </div>
         <div className="font-mono text-slate-400">
-          Showing {filteredModels.length} of {models.length} AI models
+          Showing {filteredModels.length} of {isFullLoaded ? tableModels.length : (totalModelsCount || tableModels.length)} AI models
+          {!isFullLoaded && (
+            <button
+              type="button"
+              onClick={loadAllModels}
+              disabled={isLoadingFull}
+              className="ml-2 text-brand-600 underline font-medium hover:text-brand-700 dark:text-brand-400"
+            >
+              {isLoadingFull ? 'Loading...' : `(Load All ${totalModelsCount || 375}+)`}
+            </button>
+          )}
         </div>
       </div>
     </div>
