@@ -1,14 +1,16 @@
 [
   {
-    "id": "deepseek-chat",
+    "id": "deepseek-v3",
     "name": "DeepSeek V3",
     "family": "DeepSeek",
+    "creator": "deepseek",
+    "creatorName": "DeepSeek",
     "provider": "deepseek",
-    "providerName": "DeepSeek",
+    "providerName": "DeepSeek (Direct)",
     "contextWindow": 128000,
     "maxOutputTokens": 8192,
-    "description": "DeepSeek 671B MoE 基础大模型，代码、推理与通用能力全面媲美主流闭源旗舰，极低调用成本。",
-    "tier": "Low",
+    "description": "DeepSeek 671B MoE foundation model delivering frontier-class coding and reasoning at record-shattering low token cost.",
+    "tier": "Budget",
     "isFlagship": true,
     "isCheapestInTier": true,
     "officialPricing": {
@@ -29,40 +31,68 @@
         "outputPerM": 0.28
       }
     },
-    "aggregatorOffers": [
+    "hostingOffers": [
       {
-        "aggregator": "openrouter",
-        "name": "OpenRouter",
+        "hostId": "deepinfra",
+        "hostName": "DeepInfra",
+        "hostType": "cloud",
+        "inputPerM": 0.13,
+        "outputPerM": 0.26,
+        "tokensPerSec": 45,
+        "status": "active",
+        "outboundUrl": "https://deepinfra.com/deepseek-ai/DeepSeek-V3",
+        "notes": "Lowest price per token on high-concurrency clusters"
+      },
+      {
+        "hostId": "together",
+        "hostName": "Together AI",
+        "hostType": "cloud",
         "inputPerM": 0.14,
         "outputPerM": 0.28,
+        "tokensPerSec": 60,
+        "status": "active",
+        "outboundUrl": "https://together.ai",
+        "notes": "High-throughput serverless API"
+      },
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
+        "inputPerM": 0.14,
+        "outputPerM": 0.28,
+        "tokensPerSec": 50,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/deepseek/deepseek-chat"
       },
       {
-        "aggregator": "deepinfra",
-        "name": "DeepInfra",
-        "inputPerM": 0.13,
-        "outputPerM": 0.26,
+        "hostId": "novita",
+        "hostName": "Novita AI",
+        "hostType": "cloud",
+        "inputPerM": 0.12,
+        "outputPerM": 0.25,
+        "tokensPerSec": 55,
         "status": "active",
-        "outboundUrl": "https://deepinfra.com/deepseek-ai/DeepSeek-V3"
+        "outboundUrl": "https://novita.ai"
       }
     ],
     "status": "active",
     "releasedAt": "2024-12-26",
-    "lastVerifiedAt": "2026-10-10"
+    "lastVerifiedAt": "2026-10-11"
   },
   {
-    "id": "deepseek-reasoner",
+    "id": "deepseek-r1",
     "name": "DeepSeek R1",
     "family": "DeepSeek",
+    "creator": "deepseek",
+    "creatorName": "DeepSeek",
     "provider": "deepseek",
-    "providerName": "DeepSeek",
+    "providerName": "DeepSeek (Direct)",
     "contextWindow": 128000,
     "maxOutputTokens": 32768,
-    "description": "强化学习驱动的深度推理大模型，数学、代码与长链逻辑能力对标 OpenAI o1，开源权重。",
-    "tier": "Low",
+    "description": "Reinforcement learning-driven reasoning model matching OpenAI o1 on math, code, and long-chain logic with fully open weights.",
+    "tier": "Reasoning",
     "isFlagship": true,
-    "isCheapestInTier": false,
+    "isCheapestInTier": true,
     "officialPricing": {
       "inputPerM": 0.55,
       "cachedInputPerM": 0.14,
@@ -81,161 +111,64 @@
         "outputPerM": 2.19
       }
     },
-    "aggregatorOffers": [
+    "hostingOffers": [
       {
-        "aggregator": "openrouter",
-        "name": "OpenRouter",
+        "hostId": "groq",
+        "hostName": "Groq",
+        "hostType": "specialized-hardware",
+        "inputPerM": 0.75,
+        "outputPerM": 2.49,
+        "tokensPerSec": 280,
+        "status": "active",
+        "outboundUrl": "https://groq.com",
+        "notes": "Ultra-fast reasoning streaming on LPU hardware"
+      },
+      {
+        "hostId": "cerebras",
+        "hostName": "Cerebras",
+        "hostType": "specialized-hardware",
+        "inputPerM": 0.60,
+        "outputPerM": 2.20,
+        "tokensPerSec": 450,
+        "status": "active",
+        "outboundUrl": "https://cerebras.ai",
+        "notes": "Wafer-Scale Engine delivering highest tokens/sec"
+      },
+      {
+        "hostId": "together",
+        "hostName": "Together AI",
+        "hostType": "cloud",
+        "inputPerM": 0.55,
+        "outputPerM": 2.19,
+        "tokensPerSec": 50,
+        "status": "active",
+        "outboundUrl": "https://together.ai"
+      },
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
         "inputPerM": 0.55,
         "outputPerM": 2.19,
         "status": "active",
         "outboundUrl": "https://openrouter.ai/deepseek/deepseek-r1"
-      },
-      {
-        "aggregator": "together",
-        "name": "Together AI",
-        "inputPerM": 0.55,
-        "outputPerM": 2.19,
-        "status": "active",
-        "outboundUrl": "https://together.ai"
       }
     ],
     "status": "active",
     "releasedAt": "2025-01-20",
-    "lastVerifiedAt": "2026-10-10"
+    "lastVerifiedAt": "2026-10-11"
   },
   {
-    "id": "gpt-4o",
-    "name": "GPT-4o",
-    "family": "OpenAI",
-    "provider": "openai",
-    "providerName": "OpenAI",
-    "contextWindow": 128000,
-    "maxOutputTokens": 16384,
-    "description": "OpenAI 多模态旗舰模型，兼具高智商与高速响应，全面支持结构化输出与视觉分析。",
-    "tier": "Mid",
-    "isFlagship": true,
-    "isCheapestInTier": false,
-    "officialPricing": {
-      "inputPerM": 2.50,
-      "cachedInputPerM": 1.25,
-      "outputPerM": 10.00
-    },
-    "aggregatorOffers": [
-      {
-        "aggregator": "openrouter",
-        "name": "OpenRouter",
-        "inputPerM": 2.50,
-        "outputPerM": 10.00,
-        "status": "active",
-        "outboundUrl": "https://openrouter.ai/openai/gpt-4o"
-      }
-    ],
-    "status": "active",
-    "releasedAt": "2024-05-13",
-    "lastVerifiedAt": "2026-10-10"
-  },
-  {
-    "id": "gpt-4o-mini",
-    "name": "GPT-4o mini",
-    "family": "OpenAI",
-    "provider": "openai",
-    "providerName": "OpenAI",
-    "contextWindow": 128000,
-    "maxOutputTokens": 16384,
-    "description": "超高性价比的小型轻量模型，替代 GPT-3.5 Turbo，适合轻量级 Agent、分类与批量处理。",
-    "tier": "Low",
-    "isFlagship": false,
-    "isCheapestInTier": true,
-    "officialPricing": {
-      "inputPerM": 0.15,
-      "cachedInputPerM": 0.075,
-      "outputPerM": 0.60
-    },
-    "aggregatorOffers": [
-      {
-        "aggregator": "openrouter",
-        "name": "OpenRouter",
-        "inputPerM": 0.15,
-        "outputPerM": 0.60,
-        "status": "active",
-        "outboundUrl": "https://openrouter.ai/openai/gpt-4o-mini"
-      }
-    ],
-    "status": "active",
-    "releasedAt": "2024-07-18",
-    "lastVerifiedAt": "2026-10-10"
-  },
-  {
-    "id": "o1",
-    "name": "OpenAI o1",
-    "family": "OpenAI",
-    "provider": "openai",
-    "providerName": "OpenAI",
-    "contextWindow": 200000,
-    "maxOutputTokens": 100000,
-    "description": "专为深度推理、复杂数学与高级编程设计的强化学习大模型，生成思维链。",
-    "tier": "High",
-    "isFlagship": true,
-    "isCheapestInTier": false,
-    "officialPricing": {
-      "inputPerM": 15.00,
-      "cachedInputPerM": 7.50,
-      "outputPerM": 60.00
-    },
-    "aggregatorOffers": [
-      {
-        "aggregator": "openrouter",
-        "name": "OpenRouter",
-        "inputPerM": 15.00,
-        "outputPerM": 60.00,
-        "status": "active",
-        "outboundUrl": "https://openrouter.ai/openai/o1"
-      }
-    ],
-    "status": "active",
-    "releasedAt": "2024-12-05",
-    "lastVerifiedAt": "2026-10-10"
-  },
-  {
-    "id": "o3-mini",
-    "name": "OpenAI o3-mini",
-    "family": "OpenAI",
-    "provider": "openai",
-    "providerName": "OpenAI",
-    "contextWindow": 200000,
-    "maxOutputTokens": 100000,
-    "description": "高性价比小型推理模型，针对编程、数学与科学任务深度调优，支持低延迟思考模式。",
-    "tier": "Mid",
-    "isFlagship": false,
-    "isCheapestInTier": false,
-    "officialPricing": {
-      "inputPerM": 1.10,
-      "cachedInputPerM": 0.55,
-      "outputPerM": 4.40
-    },
-    "aggregatorOffers": [
-      {
-        "aggregator": "openrouter",
-        "name": "OpenRouter",
-        "inputPerM": 1.10,
-        "outputPerM": 4.40,
-        "status": "active",
-        "outboundUrl": "https://openrouter.ai/openai/o3-mini"
-      }
-    ],
-    "status": "active",
-    "releasedAt": "2025-01-31",
-    "lastVerifiedAt": "2026-10-10"
-  },
-  {
-    "id": "claude-3-5-sonnet",
-    "name": "Claude 3.5 Sonnet",
+    "id": "claude-3-7-sonnet",
+    "name": "Claude 3.7 Sonnet",
     "family": "Claude",
+    "creator": "anthropic",
+    "creatorName": "Anthropic",
     "provider": "anthropic",
-    "providerName": "Anthropic",
+    "providerName": "Anthropic (Direct)",
     "contextWindow": 200000,
-    "maxOutputTokens": 8192,
-    "description": "行业代码与复杂 Agent 任务公认黄金标杆，支持 Computer Use 与高级视觉理解。",
+    "maxOutputTokens": 64000,
+    "description": "Anthropic flagship hybrid reasoning model with dynamic extended thinking and unmatched software engineering precision.",
     "tier": "Mid",
     "isFlagship": true,
     "isCheapestInTier": false,
@@ -244,30 +177,44 @@
       "cachedInputPerM": 0.30,
       "outputPerM": 15.00
     },
-    "aggregatorOffers": [
+    "hostingOffers": [
       {
-        "aggregator": "openrouter",
-        "name": "OpenRouter",
+        "hostId": "aws-bedrock",
+        "hostName": "AWS Bedrock",
+        "hostType": "cloud",
+        "inputPerM": 3.00,
+        "cachedInputPerM": 0.30,
+        "outputPerM": 15.00,
+        "status": "active",
+        "outboundUrl": "https://aws.amazon.com/bedrock",
+        "notes": "Amazon enterprise IAM governance and VPC peering"
+      },
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
         "inputPerM": 3.00,
         "outputPerM": 15.00,
         "status": "active",
-        "outboundUrl": "https://openrouter.ai/anthropic/claude-3.5-sonnet"
+        "outboundUrl": "https://openrouter.ai/anthropic/claude-3.7-sonnet"
       }
     ],
     "status": "active",
-    "releasedAt": "2024-10-22",
-    "lastVerifiedAt": "2026-10-10"
+    "releasedAt": "2025-02-24",
+    "lastVerifiedAt": "2026-10-11"
   },
   {
     "id": "claude-3-5-haiku",
     "name": "Claude 3.5 Haiku",
     "family": "Claude",
+    "creator": "anthropic",
+    "creatorName": "Anthropic",
     "provider": "anthropic",
-    "providerName": "Anthropic",
+    "providerName": "Anthropic (Direct)",
     "contextWindow": 200000,
     "maxOutputTokens": 8192,
-    "description": "极速响应的轻量级 Claude 模型，超越前代 Claude 3 Opus 的速度，适合日常代码辅助。",
-    "tier": "Low",
+    "description": "Ultra-fast and cost-efficient Claude model matching previous Opus intelligence speeds for conversational agent pipelines.",
+    "tier": "Budget",
     "isFlagship": false,
     "isCheapestInTier": false,
     "officialPricing": {
@@ -275,10 +222,20 @@
       "cachedInputPerM": 0.08,
       "outputPerM": 4.00
     },
-    "aggregatorOffers": [
+    "hostingOffers": [
       {
-        "aggregator": "openrouter",
-        "name": "OpenRouter",
+        "hostId": "aws-bedrock",
+        "hostName": "AWS Bedrock",
+        "hostType": "cloud",
+        "inputPerM": 0.80,
+        "outputPerM": 4.00,
+        "status": "active",
+        "outboundUrl": "https://aws.amazon.com/bedrock"
+      },
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
         "inputPerM": 0.80,
         "outputPerM": 4.00,
         "status": "active",
@@ -287,18 +244,20 @@
     ],
     "status": "active",
     "releasedAt": "2024-11-04",
-    "lastVerifiedAt": "2026-10-10"
+    "lastVerifiedAt": "2026-10-11"
   },
   {
     "id": "claude-3-opus",
     "name": "Claude 3 Opus",
     "family": "Claude",
+    "creator": "anthropic",
+    "creatorName": "Anthropic",
     "provider": "anthropic",
-    "providerName": "Anthropic",
+    "providerName": "Anthropic (Direct)",
     "contextWindow": 200000,
     "maxOutputTokens": 4096,
-    "description": "超强语言理解与深度学术写作大模型，擅长超长文本解析与高度复杂战略推理。",
-    "tier": "High",
+    "description": "Deep academic reasoning, long document synthesis, and nuanced creative writing model.",
+    "tier": "Flagship",
     "isFlagship": false,
     "isCheapestInTier": false,
     "officialPricing": {
@@ -306,10 +265,20 @@
       "cachedInputPerM": 1.50,
       "outputPerM": 75.00
     },
-    "aggregatorOffers": [
+    "hostingOffers": [
       {
-        "aggregator": "openrouter",
-        "name": "OpenRouter",
+        "hostId": "aws-bedrock",
+        "hostName": "AWS Bedrock",
+        "hostType": "cloud",
+        "inputPerM": 15.00,
+        "outputPerM": 75.00,
+        "status": "active",
+        "outboundUrl": "https://aws.amazon.com/bedrock"
+      },
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
         "inputPerM": 15.00,
         "outputPerM": 75.00,
         "status": "active",
@@ -318,18 +287,193 @@
     ],
     "status": "active",
     "releasedAt": "2024-03-04",
-    "lastVerifiedAt": "2026-10-10"
+    "lastVerifiedAt": "2026-10-11"
+  },
+  {
+    "id": "gpt-4o",
+    "name": "GPT-4o",
+    "family": "OpenAI",
+    "creator": "openai",
+    "creatorName": "OpenAI",
+    "provider": "openai",
+    "providerName": "OpenAI (Direct)",
+    "contextWindow": 128000,
+    "maxOutputTokens": 16384,
+    "description": "OpenAI omni-modal flagship model with high intelligence, fast latency, structured outputs, and vision capabilities.",
+    "tier": "Mid",
+    "isFlagship": true,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 2.50,
+      "cachedInputPerM": 1.25,
+      "outputPerM": 10.00
+    },
+    "hostingOffers": [
+      {
+        "hostId": "azure",
+        "hostName": "Microsoft Azure",
+        "hostType": "cloud",
+        "inputPerM": 2.50,
+        "outputPerM": 10.00,
+        "status": "active",
+        "outboundUrl": "https://azure.microsoft.com",
+        "notes": "Enterprise SLA and HIPAA/SOC2 compliance"
+      },
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
+        "inputPerM": 2.50,
+        "outputPerM": 10.00,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/openai/gpt-4o"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-05-13",
+    "lastVerifiedAt": "2026-10-11"
+  },
+  {
+    "id": "gpt-4o-mini",
+    "name": "GPT-4o mini",
+    "family": "OpenAI",
+    "creator": "openai",
+    "creatorName": "OpenAI",
+    "provider": "openai",
+    "providerName": "OpenAI (Direct)",
+    "contextWindow": 128000,
+    "maxOutputTokens": 16384,
+    "description": "Lightweight, ultra-cost-effective multimodal model for high-frequency text classification and routine agent tasks.",
+    "tier": "Budget",
+    "isFlagship": false,
+    "isCheapestInTier": true,
+    "officialPricing": {
+      "inputPerM": 0.15,
+      "cachedInputPerM": 0.075,
+      "outputPerM": 0.60
+    },
+    "hostingOffers": [
+      {
+        "hostId": "azure",
+        "hostName": "Microsoft Azure",
+        "hostType": "cloud",
+        "inputPerM": 0.15,
+        "outputPerM": 0.60,
+        "status": "active",
+        "outboundUrl": "https://azure.microsoft.com"
+      },
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
+        "inputPerM": 0.15,
+        "outputPerM": 0.60,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/openai/gpt-4o-mini"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-07-18",
+    "lastVerifiedAt": "2026-10-11"
+  },
+  {
+    "id": "o1",
+    "name": "OpenAI o1",
+    "family": "OpenAI",
+    "creator": "openai",
+    "creatorName": "OpenAI",
+    "provider": "openai",
+    "providerName": "OpenAI (Direct)",
+    "contextWindow": 200000,
+    "maxOutputTokens": 100000,
+    "description": "Reinforcement learning model that produces internal chain of thought for PhD-level scientific reasoning and complex code.",
+    "tier": "Reasoning",
+    "isFlagship": true,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 15.00,
+      "cachedInputPerM": 7.50,
+      "outputPerM": 60.00
+    },
+    "hostingOffers": [
+      {
+        "hostId": "azure",
+        "hostName": "Microsoft Azure",
+        "hostType": "cloud",
+        "inputPerM": 15.00,
+        "outputPerM": 60.00,
+        "status": "active",
+        "outboundUrl": "https://azure.microsoft.com"
+      },
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
+        "inputPerM": 15.00,
+        "outputPerM": 60.00,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/openai/o1"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-12-05",
+    "lastVerifiedAt": "2026-10-11"
+  },
+  {
+    "id": "o3-mini",
+    "name": "OpenAI o3-mini",
+    "family": "OpenAI",
+    "creator": "openai",
+    "creatorName": "OpenAI",
+    "provider": "openai",
+    "providerName": "OpenAI (Direct)",
+    "contextWindow": 200000,
+    "maxOutputTokens": 100000,
+    "description": "Cost-efficient small reasoning model optimized for competitive programming, mathematics, and STEM workflows.",
+    "tier": "Mid",
+    "isFlagship": false,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 1.10,
+      "cachedInputPerM": 0.55,
+      "outputPerM": 4.40
+    },
+    "hostingOffers": [
+      {
+        "hostId": "azure",
+        "hostName": "Microsoft Azure",
+        "hostType": "cloud",
+        "inputPerM": 1.10,
+        "outputPerM": 4.40,
+        "status": "active",
+        "outboundUrl": "https://azure.microsoft.com"
+      },
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
+        "inputPerM": 1.10,
+        "outputPerM": 4.40,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/openai/o3-mini"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2025-01-31",
+    "lastVerifiedAt": "2026-10-11"
   },
   {
     "id": "gemini-2-0-flash",
     "name": "Gemini 2.0 Flash",
     "family": "Gemini",
+    "creator": "google",
+    "creatorName": "Google",
     "provider": "google",
-    "providerName": "Google",
+    "providerName": "Google (Direct)",
     "contextWindow": 1048576,
     "maxOutputTokens": 8192,
-    "description": "百万 Token 超长窗口，次秒级极速多模态生成，超低延迟与低廉单价。",
-    "tier": "Low",
+    "description": "1 Million token context window with sub-second generation speeds and ultra-low pricing across multimodal inputs.",
+    "tier": "Budget",
     "isFlagship": true,
     "isCheapestInTier": true,
     "officialPricing": {
@@ -337,10 +481,11 @@
       "cachedInputPerM": 0.025,
       "outputPerM": 0.40
     },
-    "aggregatorOffers": [
+    "hostingOffers": [
       {
-        "aggregator": "openrouter",
-        "name": "OpenRouter",
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
         "inputPerM": 0.10,
         "outputPerM": 0.40,
         "status": "active",
@@ -349,17 +494,19 @@
     ],
     "status": "active",
     "releasedAt": "2025-02-05",
-    "lastVerifiedAt": "2026-10-10"
+    "lastVerifiedAt": "2026-10-11"
   },
   {
     "id": "gemini-1-5-pro",
     "name": "Gemini 1.5 Pro",
     "family": "Gemini",
+    "creator": "google",
+    "creatorName": "Google",
     "provider": "google",
-    "providerName": "Google",
+    "providerName": "Google (Direct)",
     "contextWindow": 2097152,
     "maxOutputTokens": 8192,
-    "description": "支持高达 200 万 Token 上下文，可一次性分析数十万行代码库或数小时视频内容。",
+    "description": "Industry record 2 Million token context window capable of ingesting entire software repositories or hour-long video files in a single pass.",
     "tier": "Mid",
     "isFlagship": false,
     "isCheapestInTier": false,
@@ -368,10 +515,11 @@
       "cachedInputPerM": 0.3125,
       "outputPerM": 5.00
     },
-    "aggregatorOffers": [
+    "hostingOffers": [
       {
-        "aggregator": "openrouter",
-        "name": "OpenRouter",
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
         "inputPerM": 1.25,
         "outputPerM": 5.00,
         "status": "active",
@@ -380,173 +528,53 @@
     ],
     "status": "active",
     "releasedAt": "2024-05-14",
-    "lastVerifiedAt": "2026-10-10"
+    "lastVerifiedAt": "2026-10-11"
   },
   {
-    "id": "llama-3-3-70b-instruct",
-    "name": "Llama 3.3 70B Instruct",
-    "family": "Llama",
-    "provider": "meta",
-    "providerName": "Meta (Hosted)",
-    "contextWindow": 128000,
-    "maxOutputTokens": 4096,
-    "description": "Meta 顶尖开源模型，性能对标前代 405B 模型，各大算力云广泛托管，极高性价比。",
-    "tier": "Low",
-    "isFlagship": true,
-    "isCheapestInTier": true,
-    "officialPricing": {
-      "inputPerM": 0.12,
-      "cachedInputPerM": 0.03,
-      "outputPerM": 0.30
-    },
-    "aggregatorOffers": [
-      {
-        "aggregator": "deepinfra",
-        "name": "DeepInfra",
-        "inputPerM": 0.12,
-        "outputPerM": 0.30,
-        "status": "active",
-        "outboundUrl": "https://deepinfra.com/meta-llama/Llama-3.3-70B-Instruct"
-      },
-      {
-        "aggregator": "together",
-        "name": "Together AI",
-        "inputPerM": 0.13,
-        "outputPerM": 0.32,
-        "status": "active",
-        "outboundUrl": "https://together.ai"
-      },
-      {
-        "aggregator": "openrouter",
-        "name": "OpenRouter",
-        "inputPerM": 0.12,
-        "outputPerM": 0.30,
-        "status": "active",
-        "outboundUrl": "https://openrouter.ai/meta-llama/llama-3.3-70b-instruct"
-      }
-    ],
-    "status": "active",
-    "releasedAt": "2024-12-06",
-    "lastVerifiedAt": "2026-10-10"
-  },
-  {
-    "id": "llama-3-1-8b-instruct",
-    "name": "Llama 3.1 8B Instruct",
-    "family": "Llama",
-    "provider": "meta",
-    "providerName": "Meta (Hosted)",
-    "contextWindow": 128000,
-    "maxOutputTokens": 4096,
-    "description": "极度轻量低成本模型，输入每百万 Token 仅需 $0.02，适合超高并发与微型嵌入任务。",
-    "tier": "Low",
-    "isFlagship": false,
-    "isCheapestInTier": true,
-    "officialPricing": {
-      "inputPerM": 0.02,
-      "cachedInputPerM": 0.005,
-      "outputPerM": 0.05
-    },
-    "aggregatorOffers": [
-      {
-        "aggregator": "deepinfra",
-        "name": "DeepInfra",
-        "inputPerM": 0.02,
-        "outputPerM": 0.05,
-        "status": "active",
-        "outboundUrl": "https://deepinfra.com/meta-llama/Meta-Llama-3.1-8B-Instruct"
-      },
-      {
-        "aggregator": "openrouter",
-        "name": "OpenRouter",
-        "inputPerM": 0.02,
-        "outputPerM": 0.05,
-        "status": "active",
-        "outboundUrl": "https://openrouter.ai/meta-llama/llama-3.1-8b-instruct"
-      }
-    ],
-    "status": "active",
-    "releasedAt": "2024-07-23",
-    "lastVerifiedAt": "2026-10-10"
-  },
-  {
-    "id": "qwen-2-5-72b-instruct",
-    "name": "Qwen 2.5 72B Instruct",
-    "family": "Qwen",
-    "provider": "qwen",
-    "providerName": "Alibaba Qwen",
-    "contextWindow": 128000,
+    "id": "gemini-2-0-pro",
+    "name": "Gemini 2.0 Pro",
+    "family": "Gemini",
+    "creator": "google",
+    "creatorName": "Google",
+    "provider": "google",
+    "providerName": "Google (Direct)",
+    "contextWindow": 2097152,
     "maxOutputTokens": 8192,
-    "description": "通义千问开源旗舰大模型，中英双语、数学推理与知识问答综合表现位于开源第一梯队。",
-    "tier": "Low",
-    "isFlagship": true,
-    "isCheapestInTier": false,
-    "officialPricing": {
-      "inputPerM": 0.20,
-      "cachedInputPerM": 0.05,
-      "outputPerM": 0.60
-    },
-    "aggregatorOffers": [
-      {
-        "aggregator": "openrouter",
-        "name": "OpenRouter",
-        "inputPerM": 0.18,
-        "outputPerM": 0.55,
-        "status": "active",
-        "outboundUrl": "https://openrouter.ai/qwen/qwen-2.5-72b-instruct"
-      },
-      {
-        "aggregator": "together",
-        "name": "Together AI",
-        "inputPerM": 0.20,
-        "outputPerM": 0.60,
-        "status": "active",
-        "outboundUrl": "https://together.ai"
-      }
-    ],
-    "status": "active",
-    "releasedAt": "2024-09-19",
-    "lastVerifiedAt": "2026-10-10"
-  },
-  {
-    "id": "mistral-large-2407",
-    "name": "Mistral Large 2",
-    "family": "Mistral",
-    "provider": "mistral",
-    "providerName": "Mistral AI",
-    "contextWindow": 128000,
-    "maxOutputTokens": 8192,
-    "description": "Mistral 旗舰 123B 参数模型，精通数十种主流编程语言与多语言国际化场景。",
-    "tier": "Mid",
+    "description": "Google most capable coding, mathematics, and complex reasoning model designed for frontier-level enterprise tasks.",
+    "tier": "Flagship",
     "isFlagship": true,
     "isCheapestInTier": false,
     "officialPricing": {
       "inputPerM": 2.00,
-      "cachedInputPerM": 1.00,
-      "outputPerM": 6.00
+      "cachedInputPerM": 0.50,
+      "outputPerM": 8.00
     },
-    "aggregatorOffers": [
+    "hostingOffers": [
       {
-        "aggregator": "openrouter",
-        "name": "OpenRouter",
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
         "inputPerM": 2.00,
-        "outputPerM": 6.00,
+        "outputPerM": 8.00,
         "status": "active",
-        "outboundUrl": "https://openrouter.ai/mistralai/mistral-large-2407"
+        "outboundUrl": "https://openrouter.ai/google/gemini-2.0-pro-exp-02-05"
       }
     ],
     "status": "active",
-    "releasedAt": "2024-07-24",
-    "lastVerifiedAt": "2026-10-10"
+    "releasedAt": "2025-02-05",
+    "lastVerifiedAt": "2026-10-11"
   },
   {
     "id": "grok-2",
     "name": "Grok 2",
     "family": "xAI",
+    "creator": "xai",
+    "creatorName": "xAI",
     "provider": "xai",
-    "providerName": "xAI",
+    "providerName": "xAI (Direct)",
     "contextWindow": 131072,
-    "maxOutputTokens": 4096,
-    "description": "xAI 前沿多模态大模型，拥有出色的实时事实检索与幽默智能对话风格。",
+    "maxOutputTokens": 8192,
+    "description": "xAI frontier multimodal model with conversational intelligence, real-time news retrieval, and vision capabilities.",
     "tier": "Mid",
     "isFlagship": true,
     "isCheapestInTier": false,
@@ -555,10 +583,11 @@
       "cachedInputPerM": 1.00,
       "outputPerM": 10.00
     },
-    "aggregatorOffers": [
+    "hostingOffers": [
       {
-        "aggregator": "openrouter",
-        "name": "OpenRouter",
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
         "inputPerM": 2.00,
         "outputPerM": 10.00,
         "status": "active",
@@ -567,6 +596,581 @@
     ],
     "status": "active",
     "releasedAt": "2024-08-14",
-    "lastVerifiedAt": "2026-10-10"
+    "lastVerifiedAt": "2026-10-11"
+  },
+  {
+    "id": "grok-3",
+    "name": "Grok 3",
+    "family": "xAI",
+    "creator": "xai",
+    "creatorName": "xAI",
+    "provider": "xai",
+    "providerName": "xAI (Direct)",
+    "contextWindow": 131072,
+    "maxOutputTokens": 16384,
+    "description": "Next-generation xAI flagship model trained on Memphis Colossus cluster with unmatched STEM reasoning and deep search.",
+    "tier": "Flagship",
+    "isFlagship": true,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 3.00,
+      "cachedInputPerM": 1.50,
+      "outputPerM": 15.00
+    },
+    "hostingOffers": [
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
+        "inputPerM": 3.00,
+        "outputPerM": 15.00,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/x-ai/grok-3"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2025-02-17",
+    "lastVerifiedAt": "2026-10-11"
+  },
+  {
+    "id": "llama-3-3-70b",
+    "name": "Llama 3.3 70B Instruct",
+    "family": "Llama",
+    "creator": "meta",
+    "creatorName": "Meta",
+    "provider": "meta",
+    "providerName": "Meta (Hosted)",
+    "contextWindow": 128000,
+    "maxOutputTokens": 4096,
+    "description": "Meta state-of-the-art open-weights model matching prior 405B performance with high cost efficiency on modern GPU clouds.",
+    "tier": "Budget",
+    "isFlagship": true,
+    "isCheapestInTier": true,
+    "officialPricing": {
+      "inputPerM": 0.12,
+      "cachedInputPerM": 0.03,
+      "outputPerM": 0.30
+    },
+    "hostingOffers": [
+      {
+        "hostId": "groq",
+        "hostName": "Groq",
+        "hostType": "specialized-hardware",
+        "inputPerM": 0.59,
+        "outputPerM": 0.79,
+        "tokensPerSec": 390,
+        "status": "active",
+        "outboundUrl": "https://groq.com",
+        "notes": "Lightning speed 390 tokens/sec on LPU"
+      },
+      {
+        "hostId": "deepinfra",
+        "hostName": "DeepInfra",
+        "hostType": "cloud",
+        "inputPerM": 0.12,
+        "outputPerM": 0.30,
+        "tokensPerSec": 80,
+        "status": "active",
+        "outboundUrl": "https://deepinfra.com/meta-llama/Llama-3.3-70B-Instruct"
+      },
+      {
+        "hostId": "together",
+        "hostName": "Together AI",
+        "hostType": "cloud",
+        "inputPerM": 0.13,
+        "outputPerM": 0.32,
+        "tokensPerSec": 110,
+        "status": "active",
+        "outboundUrl": "https://together.ai"
+      },
+      {
+        "hostId": "cerebras",
+        "hostName": "Cerebras",
+        "hostType": "specialized-hardware",
+        "inputPerM": 0.60,
+        "outputPerM": 0.60,
+        "tokensPerSec": 1800,
+        "status": "active",
+        "outboundUrl": "https://cerebras.ai",
+        "notes": "Fastest token streaming on Earth (1,800 tokens/sec)"
+      },
+      {
+        "hostId": "aws-bedrock",
+        "hostName": "AWS Bedrock",
+        "hostType": "cloud",
+        "inputPerM": 0.72,
+        "outputPerM": 0.72,
+        "status": "active",
+        "outboundUrl": "https://aws.amazon.com/bedrock"
+      },
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
+        "inputPerM": 0.12,
+        "outputPerM": 0.30,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/meta-llama/llama-3.3-70b-instruct"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-12-06",
+    "lastVerifiedAt": "2026-10-11"
+  },
+  {
+    "id": "llama-3-1-8b",
+    "name": "Llama 3.1 8B Instruct",
+    "family": "Llama",
+    "creator": "meta",
+    "creatorName": "Meta",
+    "provider": "meta",
+    "providerName": "Meta (Hosted)",
+    "contextWindow": 128000,
+    "maxOutputTokens": 4096,
+    "description": "Ultra-compact open model with rock-bottom token price of $0.02/1M tokens, ideal for embeddings, summarization, and high-QPS tasks.",
+    "tier": "Budget",
+    "isFlagship": false,
+    "isCheapestInTier": true,
+    "officialPricing": {
+      "inputPerM": 0.02,
+      "cachedInputPerM": 0.005,
+      "outputPerM": 0.05
+    },
+    "hostingOffers": [
+      {
+        "hostId": "deepinfra",
+        "hostName": "DeepInfra",
+        "hostType": "cloud",
+        "inputPerM": 0.02,
+        "outputPerM": 0.05,
+        "status": "active",
+        "outboundUrl": "https://deepinfra.com/meta-llama/Meta-Llama-3.1-8B-Instruct"
+      },
+      {
+        "hostId": "groq",
+        "hostName": "Groq",
+        "hostType": "specialized-hardware",
+        "inputPerM": 0.05,
+        "outputPerM": 0.08,
+        "tokensPerSec": 800,
+        "status": "active",
+        "outboundUrl": "https://groq.com"
+      },
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
+        "inputPerM": 0.02,
+        "outputPerM": 0.05,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/meta-llama/llama-3.1-8b-instruct"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-07-23",
+    "lastVerifiedAt": "2026-10-11"
+  },
+  {
+    "id": "qwen-2-5-72b",
+    "name": "Qwen 2.5 72B Instruct",
+    "family": "Qwen",
+    "creator": "alibaba",
+    "creatorName": "Alibaba (Qwen)",
+    "provider": "alibaba",
+    "providerName": "Alibaba Cloud",
+    "contextWindow": 128000,
+    "maxOutputTokens": 8192,
+    "description": "Alibaba flagship open-weights model rivaling top proprietary models across bilingual understanding, coding, and mathematical benchmarks.",
+    "tier": "Budget",
+    "isFlagship": true,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 0.20,
+      "cachedInputPerM": 0.02,
+      "outputPerM": 0.60
+    },
+    "hostingOffers": [
+      {
+        "hostId": "deepinfra",
+        "hostName": "DeepInfra",
+        "hostType": "cloud",
+        "inputPerM": 0.18,
+        "outputPerM": 0.55,
+        "status": "active",
+        "outboundUrl": "https://deepinfra.com/Qwen/Qwen2.5-72B-Instruct"
+      },
+      {
+        "hostId": "together",
+        "hostName": "Together AI",
+        "hostType": "cloud",
+        "inputPerM": 0.20,
+        "outputPerM": 0.60,
+        "status": "active",
+        "outboundUrl": "https://together.ai"
+      },
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
+        "inputPerM": 0.20,
+        "outputPerM": 0.60,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/qwen/qwen-2.5-72b-instruct"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-09-19",
+    "lastVerifiedAt": "2026-10-11"
+  },
+  {
+    "id": "qwen-2-5-coder-32b",
+    "name": "Qwen 2.5 Coder 32B",
+    "family": "Qwen",
+    "creator": "alibaba",
+    "creatorName": "Alibaba (Qwen)",
+    "provider": "alibaba",
+    "providerName": "Alibaba Cloud",
+    "contextWindow": 128000,
+    "maxOutputTokens": 8192,
+    "description": "Dedicated open-weights coding model rivaling GPT-4o in software engineering benchmarks at a fraction of the inference cost.",
+    "tier": "Budget",
+    "isFlagship": false,
+    "isCheapestInTier": true,
+    "officialPricing": {
+      "inputPerM": 0.07,
+      "cachedInputPerM": 0.01,
+      "outputPerM": 0.20
+    },
+    "hostingOffers": [
+      {
+        "hostId": "deepinfra",
+        "hostName": "DeepInfra",
+        "hostType": "cloud",
+        "inputPerM": 0.06,
+        "outputPerM": 0.18,
+        "status": "active",
+        "outboundUrl": "https://deepinfra.com/Qwen/Qwen2.5-Coder-32B-Instruct"
+      },
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
+        "inputPerM": 0.07,
+        "outputPerM": 0.20,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/qwen/qwen-2.5-coder-32b-instruct"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-11-12",
+    "lastVerifiedAt": "2026-10-11"
+  },
+  {
+    "id": "glm-4-plus",
+    "name": "GLM-4-Plus",
+    "family": "GLM",
+    "creator": "zhipu",
+    "creatorName": "Zhipu AI (GLM)",
+    "provider": "zhipu",
+    "providerName": "Zhipu AI (Direct)",
+    "contextWindow": 128000,
+    "maxOutputTokens": 4096,
+    "description": "Flagship bilingual general-purpose foundation model with enhanced long-text processing, tool calls, and high-fidelity reasoning.",
+    "tier": "Mid",
+    "isFlagship": true,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 1.40,
+      "cachedInputPerM": 0.70,
+      "outputPerM": 1.40
+    },
+    "hostingOffers": [
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
+        "inputPerM": 1.40,
+        "outputPerM": 1.40,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/zhipu/glm-4-plus"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-08-20",
+    "lastVerifiedAt": "2026-10-11"
+  },
+  {
+    "id": "glm-4-flash",
+    "name": "GLM-4-Flash",
+    "family": "GLM",
+    "creator": "zhipu",
+    "creatorName": "Zhipu AI (GLM)",
+    "provider": "zhipu",
+    "providerName": "Zhipu AI (Direct)",
+    "contextWindow": 128000,
+    "maxOutputTokens": 4096,
+    "description": "High-throughput, free/low-cost bilingual inference model designed for real-time web agents and chatbots.",
+    "tier": "Budget",
+    "isFlagship": false,
+    "isCheapestInTier": true,
+    "officialPricing": {
+      "inputPerM": 0.01,
+      "cachedInputPerM": 0.005,
+      "outputPerM": 0.01
+    },
+    "hostingOffers": [
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
+        "inputPerM": 0.01,
+        "outputPerM": 0.01,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/zhipu/glm-4-flash"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-08-01",
+    "lastVerifiedAt": "2026-10-11"
+  },
+  {
+    "id": "moonshot-v1-128k",
+    "name": "Moonshot v1 128k (Kimi)",
+    "family": "Moonshot",
+    "creator": "moonshot",
+    "creatorName": "Moonshot AI (Kimi)",
+    "provider": "moonshot",
+    "providerName": "Moonshot AI (Direct)",
+    "contextWindow": 128000,
+    "maxOutputTokens": 4096,
+    "description": "Pioneering ultra-long context model specialized in lossless PDF document parsing, financial analysis, and multi-turn recall.",
+    "tier": "Mid",
+    "isFlagship": true,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 1.70,
+      "cachedInputPerM": 0.35,
+      "outputPerM": 1.70
+    },
+    "hostingOffers": [
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
+        "inputPerM": 1.70,
+        "outputPerM": 1.70,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/moonshot/moonshot-v1-128k"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-03-15",
+    "lastVerifiedAt": "2026-10-11"
+  },
+  {
+    "id": "minimax-01",
+    "name": "MiniMax-01",
+    "family": "MiniMax",
+    "creator": "minimax",
+    "creatorName": "MiniMax",
+    "provider": "minimax",
+    "providerName": "MiniMax (Direct)",
+    "contextWindow": 4194304,
+    "maxOutputTokens": 8192,
+    "description": "Massive 4 Million token context window model with lightning fast processing for ultra-long documents and multimodal data.",
+    "tier": "Budget",
+    "isFlagship": true,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 0.20,
+      "cachedInputPerM": 0.05,
+      "outputPerM": 1.10
+    },
+    "hostingOffers": [
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
+        "inputPerM": 0.20,
+        "outputPerM": 1.10,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/minimax/minimax-01"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2025-01-15",
+    "lastVerifiedAt": "2026-10-11"
+  },
+  {
+    "id": "mistral-large-2",
+    "name": "Mistral Large 2",
+    "family": "Mistral",
+    "creator": "mistral",
+    "creatorName": "Mistral AI",
+    "provider": "mistral",
+    "providerName": "Mistral AI (Direct)",
+    "contextWindow": 128000,
+    "maxOutputTokens": 8192,
+    "description": "Flagship 123B parameter European model with multi-language fluency and superior code generation capabilities.",
+    "tier": "Mid",
+    "isFlagship": true,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 2.00,
+      "cachedInputPerM": 0.50,
+      "outputPerM": 6.00
+    },
+    "hostingOffers": [
+      {
+        "hostId": "aws-bedrock",
+        "hostName": "AWS Bedrock",
+        "hostType": "cloud",
+        "inputPerM": 2.00,
+        "outputPerM": 6.00,
+        "status": "active",
+        "outboundUrl": "https://aws.amazon.com/bedrock"
+      },
+      {
+        "hostId": "azure",
+        "hostName": "Microsoft Azure",
+        "hostType": "cloud",
+        "inputPerM": 2.00,
+        "outputPerM": 6.00,
+        "status": "active",
+        "outboundUrl": "https://azure.microsoft.com"
+      },
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
+        "inputPerM": 2.00,
+        "outputPerM": 6.00,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/mistralai/mistral-large-2407"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-07-24",
+    "lastVerifiedAt": "2026-10-11"
+  },
+  {
+    "id": "codestral-2501",
+    "name": "Codestral 2501",
+    "family": "Mistral",
+    "creator": "mistral",
+    "creatorName": "Mistral AI",
+    "provider": "mistral",
+    "providerName": "Mistral AI (Direct)",
+    "contextWindow": 256000,
+    "maxOutputTokens": 8192,
+    "description": "State-of-the-art coding and FIM (Fill-in-the-Middle) model optimized for IDE code autocompletion and repo-level refactoring.",
+    "tier": "Budget",
+    "isFlagship": false,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 0.30,
+      "cachedInputPerM": 0.10,
+      "outputPerM": 0.90
+    },
+    "hostingOffers": [
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
+        "inputPerM": 0.30,
+        "outputPerM": 0.90,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/mistralai/codestral-2501"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2025-01-14",
+    "lastVerifiedAt": "2026-10-11"
+  },
+  {
+    "id": "cohere-command-r-plus",
+    "name": "Command R+",
+    "family": "Command",
+    "creator": "cohere",
+    "creatorName": "Cohere",
+    "provider": "cohere",
+    "providerName": "Cohere (Direct)",
+    "contextWindow": 128000,
+    "maxOutputTokens": 4096,
+    "description": "Enterprise-optimized multilingual RAG model with native citation tracking and verifiable tool automation.",
+    "tier": "Mid",
+    "isFlagship": true,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 2.50,
+      "cachedInputPerM": 0.50,
+      "outputPerM": 10.00
+    },
+    "hostingOffers": [
+      {
+        "hostId": "aws-bedrock",
+        "hostName": "AWS Bedrock",
+        "hostType": "cloud",
+        "inputPerM": 2.50,
+        "outputPerM": 10.00,
+        "status": "active",
+        "outboundUrl": "https://aws.amazon.com/bedrock"
+      },
+      {
+        "hostId": "azure",
+        "hostName": "Microsoft Azure",
+        "hostType": "cloud",
+        "inputPerM": 2.50,
+        "outputPerM": 10.00,
+        "status": "active",
+        "outboundUrl": "https://azure.microsoft.com"
+      },
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
+        "inputPerM": 2.50,
+        "outputPerM": 10.00,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/cohere/command-r-plus"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-04-04",
+    "lastVerifiedAt": "2026-10-11"
+  },
+  {
+    "id": "sonar-pro",
+    "name": "Sonar Pro",
+    "family": "Sonar",
+    "creator": "perplexity",
+    "creatorName": "Perplexity",
+    "provider": "perplexity",
+    "providerName": "Perplexity (Direct)",
+    "contextWindow": 128000,
+    "maxOutputTokens": 8192,
+    "description": "Real-time search-augmented AI model performing live web retrieval, domain filtering, and grounded citation generation.",
+    "tier": "Mid",
+    "isFlagship": true,
+    "isCheapestInTier": false,
+    "officialPricing": {
+      "inputPerM": 3.00,
+      "cachedInputPerM": 1.50,
+      "outputPerM": 15.00
+    },
+    "hostingOffers": [
+      {
+        "hostId": "openrouter",
+        "hostName": "OpenRouter",
+        "hostType": "aggregator",
+        "inputPerM": 3.00,
+        "outputPerM": 15.00,
+        "status": "active",
+        "outboundUrl": "https://openrouter.ai/perplexity/sonar-pro"
+      }
+    ],
+    "status": "active",
+    "releasedAt": "2024-11-20",
+    "lastVerifiedAt": "2026-10-11"
   }
 ]

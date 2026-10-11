@@ -1,0 +1,231 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import SubscriptionMatrix from '../../components/SubscriptionMatrix';
+import { getAllSubscriptions } from '../../data/subscriptions';
+
+const subscriptions = getAllSubscriptions();
+
+const faqItems = [
+  {
+    q: 'Which AI subscription provides the best overall value in 2026?',
+    a: 'For software developers and prompt engineers, Claude Pro ($20/mo) or Cursor Pro ($20/mo) offer the highest leverage with Claude 3.7 Sonnet reasoning and code understanding. For multi-purpose multimodal assistance, ChatGPT Plus ($20/mo) offers the broadest toolkit including Advanced Voice, Sora video, and Deep Research. For budget-conscious users, Gemini Advanced ($19.99/mo) bundles 2TB Google One cloud storage, and DeepSeek provides frontier reasoning 100% free on web/app.',
+  },
+  {
+    q: 'When should I pay for an AI subscription vs using pay-as-you-go APIs?',
+    a: 'If your monthly usage is below roughly 5 million input tokens and you primarily use interactive chat, voice, code previews (Artifacts), or document uploads, an all-inclusive $20/month subscription is cheaper and more convenient. For automated backend pipelines, programmatic agent loops, or high-volume scripts, paying per-token on APIs (like DeepSeek V3 at $0.14/1M or Gemini Flash at $0.10/1M) will cost only a few pennies.',
+  },
+  {
+    q: 'Does subscribing to Claude Max make API usage cheaper?',
+    a: 'Yes. Claude Max 5x ($100/mo) includes a $100/month Claude Platform API credit, and Max 20x ($200/mo) includes a $200/month API credit. If you already spend $100+ on the Anthropic API, Claude Max gives you high-quota web chat and Claude Code CLI usage effectively free.',
+  },
+  {
+    q: 'Can I use Cursor Pro with Claude 3.7 Sonnet?',
+    a: 'Yes. Cursor Pro ($20/mo) includes 500 fast requests per month across flagship Claude 3.7 Sonnet and GPT-4o with whole-codebase indexing and the multi-file Composer agent.',
+  },
+];
+---
+
+<Layout
+  title="AI Subscription Pricing Compared 2026 — ChatGPT, Claude, Gemini, Cursor & More"
+  description="Compare 30+ AI subscription plans across OpenAI, Anthropic, Google Gemini, Grok, GLM, Kimi, DeepSeek, Cursor, and Seedance. Included models, usage caps, and API credit rebates."
+  faqItems={faqItems}
+>
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 px-4 pt-14 pb-16 text-white sm:px-6 lg:px-8">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(14,165,233,0.18),rgba(255,255,255,0))]"></div>
+    <div class="relative mx-auto max-w-5xl text-center">
+      <!-- Breadcrumb -->
+      <nav aria-label="Breadcrumb" class="mb-4 flex justify-center">
+        <ol class="flex items-center gap-2 text-xs text-slate-400">
+          <li><a href="/" class="hover:text-white transition">Home</a></li>
+          <li><span>/</span></li>
+          <li class="text-cyan-400 font-medium">Subscriptions Pricing</li>
+        </ol>
+      </nav>
+
+      <!-- Freshness Badge -->
+      <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3.5 py-1 text-xs font-semibold text-cyan-300 backdrop-blur-sm">
+        <span class="flex h-2 w-2 rounded-full bg-cyan-400 animate-pulse"></span>
+        <span>Daily Monitored · 9 Major Services · Updated 2026-10-11</span>
+      </div>
+
+      <h1 class="mt-6 text-3xl font-black tracking-tight sm:text-5xl lg:text-6xl text-white">
+        AI Subscription Pricing <br class="hidden sm:inline" />
+        <span class="bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 bg-clip-text text-transparent">
+          Compared Side-by-Side
+        </span>
+      </h1>
+
+      <p class="mx-auto mt-4 max-w-3xl text-sm sm:text-base leading-relaxed text-slate-300">
+        Every consumer and developer AI plan in one comprehensive index: <strong>ChatGPT Plus &amp; Pro</strong>, <strong>Claude Pro &amp; Max</strong>, <strong>Gemini Advanced</strong>, <strong>SuperGrok</strong>, <strong>Cursor Pro</strong>, <strong>Kimi VIP</strong>, <strong>GLM Coding</strong>, <strong>DeepSeek</strong>, and <strong>Seedance</strong>. Compare included reasoning models, context limits, and hidden perks.
+      </p>
+
+      <!-- Quick Metrics Pills -->
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-3 text-xs">
+        <div class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm">
+          <span class="text-slate-400">Best Free Tier: </span>
+          <strong class="text-teal-300">DeepSeek (Unlimited V3 &amp; R1)</strong>
+        </div>
+        <div class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm">
+          <span class="text-slate-400">Best for Coding: </span>
+          <strong class="text-cyan-300">Cursor Pro ($20/mo) / Claude ($20/mo)</strong>
+        </div>
+        <div class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm">
+          <span class="text-slate-400">Best Storage Value: </span>
+          <strong class="text-emerald-300">Google AI Pro (2TB Included)</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Insight Feature Banner -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-10">
+    <div class="rounded-2xl border border-amber-200/80 bg-gradient-to-r from-amber-50 to-orange-50 p-5 sm:p-6 shadow-sm dark:border-amber-900/60 dark:from-amber-950/30 dark:to-orange-950/20">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <span class="rounded bg-amber-200/60 dark:bg-amber-900/60 px-2 py-0.5 text-[10px] font-bold text-amber-800 dark:text-amber-300 uppercase">
+            Industry Trend: API Credit Rebates
+          </span>
+          <h2 class="mt-1.5 text-lg font-bold text-slate-900 dark:text-white">
+            Did you know? Claude Max bundles 100% of its subscription fee in developer API credits
+          </h2>
+          <p class="mt-1 text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-3xl">
+            Claude Max 5x ($100/mo) includes a $100/mo API credit, and Max 20x ($200/mo) includes a $200/mo API credit on Anthropic Console. If your team already spends money on the Anthropic API, subscribing gives you high-quota Claude Code and web UI access for zero marginal cost.
+          </p>
+        </div>
+        <a
+          href="/subscriptions/claude/"
+          class="shrink-0 inline-flex items-center rounded-xl bg-amber-600 px-4 py-2 text-xs font-bold text-white hover:bg-amber-500 shadow-sm transition"
+        >
+          See Claude Analysis &rarr;
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Comparison Table & Matrix -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="mb-6 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
+      <div>
+        <h2 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+          All Plans Compared by Price &amp; Feature Set
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-0.5">
+          Filter by tier, brand, included model architectures, or rate limits.
+        </p>
+      </div>
+      <div class="text-xs text-slate-400 font-mono">
+        Last synced: 2026-10-11
+      </div>
+    </div>
+
+    <SubscriptionMatrix client:load services={subscriptions} />
+  </section>
+
+  <!-- Dedicated Service Guides Directory Cards -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-t border-slate-200 dark:border-slate-800">
+    <div class="text-center max-w-2xl mx-auto mb-10">
+      <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+        Dedicated Subscription Guides &amp; Deep Dives
+      </h2>
+      <p class="mt-2 text-xs sm:text-sm text-slate-500 dark:text-slate-400">
+        Explore detailed plan breakdowns, pros &amp; cons, context windows, and API vs subscription analysis for each major AI brand.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {subscriptions.map((s) => (
+        <a
+          href={`/subscriptions/${s.id}/`}
+          class="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm hover:border-brand-500 hover:shadow-md dark:border-slate-800 dark:bg-slate-900 dark:hover:border-brand-500 transition-all flex flex-col justify-between"
+        >
+          <div>
+            <div class="flex items-center justify-between">
+              <span class={`rounded-lg px-2.5 py-1 text-xs font-bold border ${s.badgeColor}`}>
+                {s.name}
+              </span>
+              <span class="text-xs text-slate-400 font-medium">by {s.company}</span>
+            </div>
+
+            <h3 class="mt-3 text-base font-bold text-slate-900 dark:text-white group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors">
+              {s.name} Subscription Plans
+            </h3>
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400 line-clamp-2">
+              {s.tagline}
+            </p>
+
+            <div class="mt-4 flex flex-wrap gap-1.5">
+              {s.plans.map((p) => (
+                <span class="rounded bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+                  {p.name}: {p.priceMonthly === 0 ? 'Free' : `$${p.priceMonthly || p.pricePerSeatMonthly}/mo`}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div class="mt-5 pt-3 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between text-xs font-semibold text-brand-600 dark:text-brand-400">
+            <span>Read Complete Review &amp; Limits</span>
+            <span class="group-hover:translate-x-1 transition-transform">&rarr;</span>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- Decision Framework: Subscription vs API -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="rounded-2xl border border-slate-200 bg-slate-50/80 p-6 sm:p-8 dark:border-slate-800 dark:bg-slate-900/60">
+      <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white">
+        Subscription vs API: Which One Saves You More Money?
+      </h2>
+      <div class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6 text-sm text-slate-600 dark:text-slate-300">
+        <div class="rounded-xl bg-white p-5 border border-slate-200/80 dark:bg-slate-800/80 dark:border-slate-700">
+          <h3 class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <span class="text-emerald-500 font-black">✓</span> Choose a Monthly Subscription ($20/mo) If:
+          </h3>
+          <ul class="mt-3 space-y-2 list-disc list-inside text-xs leading-relaxed">
+            <li>You value human-friendly interactive interfaces (Canvas, Artifacts, Advanced Voice).</li>
+            <li>Your input volume is below 5 million tokens per month (a few dozen prompts a day).</li>
+            <li>You frequently upload large multi-megabyte PDFs or documents for human reading.</li>
+            <li>You prefer predictable budgeting with zero risk of runaway API billing charges.</li>
+          </ul>
+        </div>
+        <div class="rounded-xl bg-white p-5 border border-slate-200/80 dark:bg-slate-800/80 dark:border-slate-700">
+          <h3 class="font-bold text-slate-900 dark:text-white flex items-center gap-2">
+            <span class="text-brand-500 font-black">⚡</span> Choose Pay-As-You-Go API If:
+          </h3>
+          <ul class="mt-3 space-y-2 list-disc list-inside text-xs leading-relaxed">
+            <li>You are building automated background pipelines, scripts, or customer-facing apps.</li>
+            <li>You use high-efficiency models like DeepSeek V3 ($0.14/1M) or Gemini 2.0 Flash ($0.10/1M).</li>
+            <li>Your prompts take advantage of Prompt Caching discounts (up to 90% cheaper).</li>
+            <li>You want uncapped parallel concurrency without waiting 3-5 hours for quota resets.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <h2 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight mb-6 text-center">
+      Frequently Asked Questions About AI Subscriptions
+    </h2>
+    <div class="space-y-4">
+      {faqItems.map((item) => (
+        <details class="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition dark:border-slate-800 dark:bg-slate-900 [&_summary::-webkit-details-marker]:hidden">
+          <summary class="flex cursor-pointer items-center justify-between font-semibold text-slate-900 dark:text-slate-100 text-sm">
+            <span>{item.q}</span>
+            <span class="ml-4 shrink-0 rounded-full border border-slate-200 p-1 text-slate-400 group-open:rotate-180 dark:border-slate-700 transition">
+              <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-300 border-t border-slate-100 pt-3 dark:border-slate-800">
+            {item.a}
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+</Layout>

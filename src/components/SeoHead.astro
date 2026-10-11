@@ -113,7 +113,7 @@ const formattedDate = new Date().toISOString().split('T')[0];
     })}
   />
 
-  <!-- JSON-LD: 2. FAQPage Schema (PAA 富媒体摘要) -->
+  <!-- JSON-LD: 2. FAQPage Schema (Rich snippet for PAA) -->
   {
     faqItems.length > 0 && (
       <script
@@ -134,7 +134,7 @@ const formattedDate = new Date().toISOString().split('T')[0];
     )
   }
 
-  <!-- JSON-LD: 3. Product & Offer Schema (针对模型列表与详情) -->
+  <!-- JSON-LD: 3. Product & Offer Schema (For models listing and pricing) -->
   {
     models.length > 0 && (
       <script
@@ -176,7 +176,7 @@ const formattedDate = new Date().toISOString().split('T')[0];
     )
   }
 
-  <!-- JSON-LD: 4. Dataset Schema (开放数据集声明) -->
+  <!-- JSON-LD: 4. Dataset Schema (Open dataset declaration) -->
   {
     isDataset && (
       <script

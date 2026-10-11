@@ -1,5 +1,6 @@
 import modelsData from './models.json';
 import type { ModelRecord, ProviderInfo } from './types';
+import { providersList } from './providers';
 
 export const models: ModelRecord[] = modelsData as ModelRecord[];
 
@@ -12,7 +13,19 @@ export function getModelById(id: string): ModelRecord | undefined {
 }
 
 export function getModelsByProvider(provider: string): ModelRecord[] {
-  return models.filter((m) => m.provider.toLowerCase() === provider.toLowerCase());
+  return models.filter(
+    (m) =>
+      m.provider.toLowerCase() === provider.toLowerCase() ||
+      m.creator.toLowerCase() === provider.toLowerCase()
+  );
+}
+
+export function getModelsByCreator(creator: string): ModelRecord[] {
+  return models.filter((m) => m.creator.toLowerCase() === creator.toLowerCase());
+}
+
+export function getModelsByHost(hostId: string): ModelRecord[] {
+  return models.filter((m) => m.hostingOffers?.some((h) => h.hostId.toLowerCase() === hostId.toLowerCase()));
 }
 
 export function getCheapestModels(limit = 10): ModelRecord[] {
@@ -20,13 +33,15 @@ export function getCheapestModels(limit = 10): ModelRecord[] {
 }
 
 export function getProvidersList(): ProviderInfo[] {
-  const map = new Map<string, { models: ModelRecord[]; name: string }>();
+  const map = new Map<string, { models: ModelRecord[]; name: string; creatorSlug: string }>();
 
   for (const model of models) {
-    if (!map.has(model.provider)) {
-      map.set(model.provider, { models: [], name: model.providerName });
+    const slug = model.creator || model.provider;
+    const name = model.creatorName || model.providerName;
+    if (!map.has(slug)) {
+      map.set(slug, { models: [], name, creatorSlug: slug });
     }
-    map.get(model.provider)!.models.push(model);
+    map.get(slug)!.models.push(model);
   }
 
   const providers: ProviderInfo[] = [];
@@ -34,12 +49,14 @@ export function getProvidersList(): ProviderInfo[] {
   map.forEach((value, key) => {
     const minInput = Math.min(...value.models.map((m) => m.officialPricing.inputPerM));
     const maxContext = Math.max(...value.models.map((m) => m.contextWindow));
+    const provDef = providersList.find((p) => p.id === key);
 
     providers.push({
       id: key,
-      name: value.name,
-      description: `Official and aggregated API pricing for ${value.name} models.`,
-      officialUrl: `https://${key}.com`,
+      name: provDef?.name || value.name,
+      category: 'creator',
+      description: provDef?.tagline || `Official and aggregated API pricing for ${value.name} models.`,
+      officialUrl: provDef?.website || `https://${key}.com`,
       logo: `/logos/${key}.svg`,
       modelsCount: value.models.length,
       minInputPerM: minInput,
@@ -51,7 +68,7 @@ export function getProvidersList(): ProviderInfo[] {
 }
 
 /**
- * 计算单个模型在给定输入/输出/缓存条件下的花费
+ * Calculate token cost for a model under given prompt/completion/cache conditions
  */
 export function calculateCost(
   model: ModelRecord,
@@ -63,28 +80,39 @@ export function calculateCost(
   aggregatorCost: number;
   savings: number;
   savingsPercent: number;
+  bestHostName?: string;
 } {
   const effectiveCache = Math.max(0, Math.min(1, cacheHitRatio));
   const cachedInput = inputTokens * effectiveCache;
   const regularInput = inputTokens * (1 - effectiveCache);
 
-  // 官方花费计算 (基于 1M tokens)
+  // Official direct cost calculation (per 1M tokens)
   const officialInputCost =
     (regularInput * model.officialPricing.inputPerM +
-      cachedInput * model.officialPricing.cachedInputPerM) /
+      cachedInput * (model.officialPricing.cachedInputPerM || model.officialPricing.inputPerM)) /
     1_000_000;
   const officialOutputCost = (outputTokens * model.officialPricing.outputPerM) / 1_000_000;
   const officialCost = officialInputCost + officialOutputCost;
 
-  // 聚合商花费计算 (寻找可用最低者)
+  // Best hosting / aggregator cost calculation
   let bestAggregatorInput = model.officialPricing.inputPerM;
   let bestAggregatorOutput = model.officialPricing.outputPerM;
+  let bestHostName: string | undefined = undefined;
 
-  if (model.aggregatorOffers && model.aggregatorOffers.length > 0) {
-    for (const offer of model.aggregatorOffers) {
+  const offers = model.hostingOffers || [];
+  if (offers.length > 0) {
+    for (const offer of offers) {
       if (offer.status === 'active') {
-        if (offer.inputPerM < bestAggregatorInput) bestAggregatorInput = offer.inputPerM;
-        if (offer.outputPerM < bestAggregatorOutput) bestAggregatorOutput = offer.outputPerM;
+        const totalOfferEstimate =
+          (regularInput * offer.inputPerM + outputTokens * offer.outputPerM) / 1_000_000;
+        const currentBestEstimate =
+          (regularInput * bestAggregatorInput + outputTokens * bestAggregatorOutput) / 1_000_000;
+
+        if (totalOfferEstimate < currentBestEstimate) {
+          bestAggregatorInput = offer.inputPerM;
+          bestAggregatorOutput = offer.outputPerM;
+          bestHostName = offer.hostName;
+        }
       }
     }
   }
@@ -104,5 +132,6 @@ export function calculateCost(
     aggregatorCost,
     savings,
     savingsPercent,
+    bestHostName,
   };
 }

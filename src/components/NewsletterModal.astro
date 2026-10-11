@@ -65,7 +65,7 @@
     const closeBtn = document.getElementById('newsletter-close-btn');
 
     if (modal) {
-      // 12 秒延迟弹出，不干扰早期阅读
+      // 12-second delayed prompt to avoid interrupting early reading experience
       setTimeout(() => {
         modal.classList.remove('hidden');
         requestAnimationFrame(() => {

@@ -19,20 +19,20 @@ export default function TokenCalculator({ models, initialModelId = 'gpt-4o', emb
     return models.find((m) => m.id === selectedModelId) || models[0];
   }, [models, selectedModelId]);
 
-  // 计算单次请求的花费
+  // Single request cost calculation
   const singleCost = useMemo(() => {
     return calculateCost(selectedModel, inputTokens, outputTokens, cacheHitPercent / 100);
   }, [selectedModel, inputTokens, outputTokens, cacheHitPercent]);
 
-  // 计算每月总花费 (以 30 天计)
+  // Monthly budget calculation (standard 30-day projection)
   const monthlyOfficialCost = singleCost.officialCost * dailyRequests * 30;
   const monthlyAggregatorCost = singleCost.aggregatorCost * dailyRequests * 30;
   const monthlySavings = Math.max(0, monthlyOfficialCost - monthlyAggregatorCost);
 
-  // 推荐平替模型 (同等或更低价格的最高性价比推荐)
+  // Smart alternative model recommendation
   const alternativeModel = useMemo(() => {
     if (selectedModel.officialPricing.inputPerM > 1.0) {
-      return models.find((m) => m.id === 'deepseek-chat') || models.find((m) => m.id === 'gpt-4o-mini');
+      return models.find((m) => m.id === 'deepseek-v3') || models.find((m) => m.id === 'gpt-4o-mini');
     }
     return null;
   }, [models, selectedModel]);
@@ -58,7 +58,7 @@ export default function TokenCalculator({ models, initialModelId = 'gpt-4o', emb
           </p>
         </div>
 
-        {/* 模型选择 */}
+        {/* Model Selection */}
         <div className="flex items-center gap-2">
           <label htmlFor="calc-model" className="text-xs font-semibold uppercase text-slate-500 dark:text-slate-400">
             Model:
@@ -71,16 +71,16 @@ export default function TokenCalculator({ models, initialModelId = 'gpt-4o', emb
           >
             {models.map((m) => (
               <option key={m.id} value={m.id}>
-                {m.name} ({m.providerName}) — ${m.officialPricing.inputPerM}/1M
+                {m.name} ({m.creatorName || m.providerName}) — ${m.officialPricing.inputPerM}/1M
               </option>
             ))}
           </select>
         </div>
       </div>
 
-      {/* 参数调节输入网格 */}
+      {/* Parameter Control Grid */}
       <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3">
-        {/* 输入 Token (Prompt) */}
+        {/* Input Tokens (Prompt) */}
         <div>
           <div className="flex justify-between text-xs font-medium text-slate-700 dark:text-slate-300">
             <span>Input Tokens (Prompt)</span>
@@ -102,7 +102,7 @@ export default function TokenCalculator({ models, initialModelId = 'gpt-4o', emb
           </div>
         </div>
 
-        {/* 输出 Token (Completion) */}
+        {/* Output Tokens (Completion) */}
         <div>
           <div className="flex justify-between text-xs font-medium text-slate-700 dark:text-slate-300">
             <span>Output Tokens (Completion)</span>
@@ -124,7 +124,7 @@ export default function TokenCalculator({ models, initialModelId = 'gpt-4o', emb
           </div>
         </div>
 
-        {/* 缓存命中率 (Prompt Cache Hit %) */}
+        {/* Prompt Cache Hit % */}
         <div>
           <div className="flex justify-between text-xs font-medium text-slate-700 dark:text-slate-300">
             <span>Prompt Cache Hit</span>
@@ -147,7 +147,7 @@ export default function TokenCalculator({ models, initialModelId = 'gpt-4o', emb
         </div>
       </div>
 
-      {/* 每日请求频次滑块 */}
+      {/* Daily Call Volume Slider */}
       <div className="mt-4 rounded-xl bg-slate-50 p-3.5 dark:bg-slate-800/60">
         <div className="flex items-center justify-between text-xs font-medium text-slate-700 dark:text-slate-300">
           <span>Daily API Calls (Volume Scale):</span>
@@ -166,20 +166,20 @@ export default function TokenCalculator({ models, initialModelId = 'gpt-4o', emb
         />
       </div>
 
-      {/* 结果卡片展示 */}
+      {/* Output Results Grid */}
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
-        {/* 单次调用 */}
+        {/* Single Call */}
         <div className="rounded-xl border border-slate-100 bg-slate-50/50 p-4 dark:border-slate-800 dark:bg-slate-800/40">
           <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Single Call Cost</div>
           <div className="mt-1 font-mono text-xl font-extrabold text-slate-900 dark:text-white">
             ${singleCost.officialCost.toFixed(5)}
           </div>
           <div className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
-            Output output: ${(singleCost.officialCost - (inputTokens * selectedModel.officialPricing.inputPerM) / 1000000).toFixed(5)}
+            Per request average cost
           </div>
         </div>
 
-        {/* 官方月度支出 */}
+        {/* Official Monthly Bill */}
         <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-700 dark:bg-slate-800">
           <div className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">Official Monthly Bill</div>
           <div className="mt-1 font-mono text-2xl font-black text-slate-900 dark:text-white">
@@ -187,14 +187,14 @@ export default function TokenCalculator({ models, initialModelId = 'gpt-4o', emb
             <span className="text-xs font-normal text-slate-400"> / mo</span>
           </div>
           <div className="mt-1 text-[11px] text-slate-500 dark:text-slate-400">
-            Base: ${selectedModel.officialPricing.inputPerM}/1M in · ${selectedModel.officialPricing.outputPerM}/1M out
+            Direct Lab rate: ${selectedModel.officialPricing.inputPerM}/1M in · ${selectedModel.officialPricing.outputPerM}/1M out
           </div>
         </div>
 
-        {/* 聚合商最优与节省 */}
+        {/* Aggregator Best Deal */}
         <div className="rounded-xl border border-emerald-200 bg-emerald-50/60 p-4 dark:border-emerald-900 dark:bg-emerald-950/40">
           <div className="text-[11px] font-semibold uppercase tracking-wider text-emerald-800 dark:text-emerald-300">
-            Via Aggregator (Lowest)
+            Via Hosting &amp; Relays
           </div>
           <div className="mt-1 font-mono text-2xl font-black text-emerald-700 dark:text-emerald-300">
             ${monthlyAggregatorCost.toFixed(2)}
@@ -204,13 +204,13 @@ export default function TokenCalculator({ models, initialModelId = 'gpt-4o', emb
             {monthlySavings > 0.01 ? (
               <span>Saves ${monthlySavings.toFixed(2)}/mo ({singleCost.savingsPercent.toFixed(1)}%)</span>
             ) : (
-              <span>Official rate matches aggregator</span>
+              <span>Official rate matches best host</span>
             )}
           </div>
         </div>
       </div>
 
-      {/* 智能平替模型推荐建议 */}
+      {/* Smart Alternative Recommendation */}
       {alternativeModel && alternativeMonthlyCost !== null && (
         <div className="mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 rounded-xl border border-brand-200 bg-brand-50/80 px-4 py-3 text-xs text-brand-900 dark:border-brand-900/60 dark:bg-brand-950/40 dark:text-brand-200">
           <div className="flex items-center gap-2">

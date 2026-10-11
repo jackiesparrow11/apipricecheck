@@ -1,0 +1,321 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getAllSubscriptions } from '../../data/subscriptions';
+import type { SubscriptionService } from '../../data/types';
+
+export function getStaticPaths() {
+  const subscriptions = getAllSubscriptions();
+  return subscriptions.map((service) => ({
+    params: { service: service.id },
+    props: { service },
+  }));
+}
+
+interface Props {
+  service: SubscriptionService;
+}
+
+const { service } = Astro.props;
+const otherServices = getAllSubscriptions().filter((s) => s.id !== service.id);
+
+const faqItems = service.faqs.map((f) => ({
+  q: f.question,
+  a: f.answer,
+}));
+---
+
+<Layout
+  title={`${service.name} Subscription Pricing & Plans (2026 Guide) — Limits, Features & Reviews`}
+  description={`Complete guide to ${service.name} plans by ${service.company}. Compare pricing, included reasoning models, rate limits, context windows, and API cost differences.`}
+  faqItems={faqItems}
+>
+  <!-- Hero Section -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 px-4 pt-12 pb-16 text-white sm:px-6 lg:px-8">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(14,165,233,0.18),rgba(255,255,255,0))]"></div>
+    <div class="relative mx-auto max-w-5xl">
+      <!-- Breadcrumbs -->
+      <nav aria-label="Breadcrumb" class="mb-4">
+        <ol class="flex items-center gap-2 text-xs text-slate-400">
+          <li><a href="/" class="hover:text-white transition">Home</a></li>
+          <li><span>/</span></li>
+          <li><a href="/subscriptions/" class="hover:text-white transition">Subscriptions</a></li>
+          <li><span>/</span></li>
+          <li class="text-cyan-400 font-medium">{service.name}</li>
+        </ol>
+      </nav>
+
+      <!-- Badge and Title -->
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div>
+          <div class="inline-flex items-center gap-2 rounded-full border border-cyan-500/30 bg-cyan-500/10 px-3 py-1 text-xs font-semibold text-cyan-300">
+            <span>By {service.company}</span>
+            <span>·</span>
+            <span>{service.plans.length} Available Plans</span>
+          </div>
+          <h1 class="mt-3 text-3xl font-black tracking-tight sm:text-5xl text-white">
+            {service.name} Pricing &amp; Plans
+          </h1>
+          <p class="mt-2 text-sm sm:text-base text-slate-300 max-w-2xl">
+            {service.tagline}
+          </p>
+        </div>
+
+        <div class="shrink-0 flex items-center gap-3">
+          <a
+            href={service.officialUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 rounded-xl bg-brand-600 px-5 py-2.5 text-xs font-bold text-white hover:bg-brand-500 shadow-lg shadow-brand-500/20 transition"
+          >
+            <span>Visit {service.name}</span>
+            <span>&rarr;</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Summary Stats Grid -->
+      <div class="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3">
+        <div class="rounded-xl border border-white/10 bg-white/5 p-3.5 backdrop-blur-sm">
+          <div class="text-[10px] font-semibold uppercase text-slate-400">Entry Plan</div>
+          <div class="mt-1 font-mono text-xl font-bold text-white">
+            {service.plans[0]?.priceMonthly === 0 ? 'Free ($0)' : `$${service.plans[0]?.priceMonthly}/mo`}
+          </div>
+        </div>
+        <div class="rounded-xl border border-white/10 bg-white/5 p-3.5 backdrop-blur-sm">
+          <div class="text-[10px] font-semibold uppercase text-slate-400">Pro Plan</div>
+          <div class="mt-1 font-mono text-xl font-bold text-teal-300">
+            {service.plans.find((p) => p.tier === 'pro')?.priceMonthly ? `$${service.plans.find((p) => p.tier === 'pro')?.priceMonthly}/mo` : 'Included'}
+          </div>
+        </div>
+        <div class="rounded-xl border border-white/10 bg-white/5 p-3.5 backdrop-blur-sm">
+          <div class="text-[10px] font-semibold uppercase text-slate-400">Max Context</div>
+          <div class="mt-1 font-mono text-xl font-bold text-cyan-300">
+            {service.plans[service.plans.length - 1]?.contextWindow.split(' ')[0] || '128k'}
+          </div>
+        </div>
+        <div class="rounded-xl border border-white/10 bg-white/5 p-3.5 backdrop-blur-sm">
+          <div class="text-[10px] font-semibold uppercase text-slate-400">Key Focus</div>
+          <div class="mt-1 text-xs font-bold text-emerald-300 truncate">
+            {service.name === 'Cursor' ? 'IDE Agent' : service.name === 'Claude' ? 'Coding & Reasoning' : 'Multimodal AI'}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- In-Depth Plans & Tiers Breakdown -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8">
+      <h2 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
+        Complete Plan Breakdown &amp; Pricing Tiers
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-1">
+        Compare prices, included model access, context lengths, and message caps for each {service.name} tier.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {service.plans.map((plan) => (
+        <div
+          class={`rounded-2xl border p-6 flex flex-col justify-between transition-all ${
+            plan.status === 'popular'
+              ? 'border-brand-500 bg-white shadow-lg ring-1 ring-brand-500/30 dark:bg-slate-900 dark:border-brand-500'
+              : 'border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900'
+          }`}
+        >
+          <div>
+            <div class="flex items-center justify-between">
+              <span class="rounded bg-slate-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+                {plan.tier} Tier
+              </span>
+              {plan.status === 'popular' && (
+                <span class="rounded-full bg-brand-600 px-2.5 py-0.5 text-[10px] font-bold text-white uppercase tracking-wider">
+                  Recommended
+                </span>
+              )}
+            </div>
+
+            <h3 class="mt-3 text-xl font-bold text-slate-900 dark:text-white">
+              {plan.name}
+            </h3>
+            <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">
+              {plan.bestFor}
+            </p>
+
+            <!-- Price Display -->
+            <div class="mt-5 flex items-baseline gap-1">
+              <span class="text-3xl font-black text-slate-900 dark:text-white font-mono">
+                {plan.priceMonthly === 0 ? '$0' : `$${plan.priceMonthly || plan.pricePerSeatMonthly}`}
+              </span>
+              <span class="text-xs text-slate-400">
+                {plan.pricePerSeatMonthly ? '/ seat / month' : '/ month'}
+              </span>
+            </div>
+            {plan.priceYearly && (
+              <div class="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium mt-0.5">
+                ${plan.priceYearly}/year when billed annually
+              </div>
+            )}
+
+            <!-- Included Models -->
+            <div class="mt-5 border-t border-slate-100 dark:border-slate-800 pt-4">
+              <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5">
+                Included Models
+              </div>
+              <div class="flex flex-wrap gap-1">
+                {plan.includedModels.map((m) => (
+                  <span class="rounded bg-slate-100 px-2 py-0.5 text-[11px] font-semibold text-slate-700 dark:bg-slate-800 dark:text-slate-300">
+                    {m}
+                  </span>
+                ))}
+              </div>
+            </div>
+
+            <!-- Context & Quota Limits -->
+            <div class="mt-4 space-y-2 text-xs">
+              <div class="flex justify-between border-b border-slate-50 dark:border-slate-800/60 pb-1.5">
+                <span class="text-slate-400">Context Window:</span>
+                <span class="font-mono font-bold text-slate-700 dark:text-slate-200">{plan.contextWindow}</span>
+              </div>
+              <div class="flex justify-between border-b border-slate-50 dark:border-slate-800/60 pb-1.5">
+                <span class="text-slate-400">Usage Limits:</span>
+                <span class="text-right text-slate-700 dark:text-slate-200 font-medium max-w-[60%]">{plan.rateLimits}</span>
+              </div>
+            </div>
+
+            <!-- Features List -->
+            <div class="mt-4 pt-3 border-t border-slate-100 dark:border-slate-800">
+              <div class="text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-2">
+                What's Included
+              </div>
+              <ul class="space-y-1.5 text-xs text-slate-600 dark:text-slate-300">
+                {plan.features.map((feat) => (
+                  <li class="flex items-start gap-2">
+                    <span class="text-emerald-500 font-bold shrink-0">✓</span>
+                    <span>{feat}</span>
+                  </li>
+                ))}
+              </ul>
+
+              {plan.apiCreditIncluded && (
+                <div class="mt-3 rounded-xl bg-amber-50 p-2.5 text-xs font-bold text-amber-800 dark:bg-amber-950/60 dark:text-amber-300 border border-amber-200 dark:border-amber-800 flex items-center gap-1.5">
+                  <span>⚡</span>
+                  <span>Includes {plan.apiCreditIncluded}</span>
+                </div>
+              )}
+            </div>
+          </div>
+
+          <div class="mt-6 pt-4 border-t border-slate-100 dark:border-slate-800">
+            <a
+              href={service.officialUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              class={`w-full text-center block rounded-xl py-2.5 text-xs font-bold transition shadow-sm ${
+                plan.status === 'popular'
+                  ? 'bg-brand-600 text-white hover:bg-brand-500 shadow-brand-500/20'
+                  : 'bg-slate-900 text-white hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700'
+              }`}
+            >
+              Get Started with {plan.name} &rarr;
+            </a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Deep Dive Analysis Section: Subscription vs API -->
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div class="rounded-2xl border border-slate-200 bg-slate-50/70 p-6 sm:p-8 dark:border-slate-800 dark:bg-slate-900/60">
+      <div class="flex items-center gap-2">
+        <span class="rounded bg-brand-600 px-2 py-0.5 text-[10px] font-bold text-white uppercase">
+          Cost Analysis
+        </span>
+        <h2 class="text-xl font-bold text-slate-900 dark:text-white">
+          Should You Subscribe to {service.name} or Use the Direct API?
+        </h2>
+      </div>
+      <p class="mt-3 text-sm leading-relaxed text-slate-600 dark:text-slate-300">
+        {service.subVsApiAdvice}
+      </p>
+    </div>
+  </section>
+
+  <!-- Pros & Cons Matrix -->
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <h2 class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white tracking-tight mb-6">
+      {service.name} Strengths &amp; Trade-offs
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="rounded-2xl border border-emerald-200 bg-emerald-50/40 p-6 dark:border-emerald-900/50 dark:bg-emerald-950/20">
+        <h3 class="text-base font-bold text-emerald-900 dark:text-emerald-200 flex items-center gap-2">
+          <span>✓</span> Key Advantages
+        </h3>
+        <ul class="mt-4 space-y-2.5 text-xs sm:text-sm text-emerald-950 dark:text-emerald-300">
+          {service.pros.map((p) => (
+            <li class="flex items-start gap-2">
+              <span class="text-emerald-600 dark:text-emerald-400 font-bold">•</span>
+              <span>{p}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="rounded-2xl border border-rose-200 bg-rose-50/40 p-6 dark:border-rose-900/50 dark:bg-rose-950/20">
+        <h3 class="text-base font-bold text-rose-900 dark:text-rose-200 flex items-center gap-2">
+          <span>✕</span> Drawbacks &amp; Limitations
+        </h3>
+        <ul class="mt-4 space-y-2.5 text-xs sm:text-sm text-rose-950 dark:text-rose-300">
+          {service.cons.map((c) => (
+            <li class="flex items-start gap-2">
+              <span class="text-rose-600 dark:text-rose-400 font-bold">•</span>
+              <span>{c}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rival Alternatives Navigation -->
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 border-t border-slate-200 dark:border-slate-800">
+    <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-4">
+      Compare Other Major AI Subscriptions:
+    </h2>
+    <div class="flex flex-wrap gap-2">
+      {otherServices.map((o) => (
+        <a
+          href={`/subscriptions/${o.id}/`}
+          class="rounded-xl border border-slate-200 bg-white px-3.5 py-2 text-xs font-semibold text-slate-700 hover:border-brand-500 hover:text-brand-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:text-brand-400 transition"
+        >
+          {o.name} Pricing &rarr;
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <!-- FAQs with FAQPage Schema -->
+  <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <h2 class="text-2xl font-black text-slate-900 dark:text-white tracking-tight mb-6">
+      Frequently Asked Questions About {service.name}
+    </h2>
+    <div class="space-y-4">
+      {service.faqs.map((f) => (
+        <details class="group rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition dark:border-slate-800 dark:bg-slate-900 [&_summary::-webkit-details-marker]:hidden">
+          <summary class="flex cursor-pointer items-center justify-between font-semibold text-slate-900 dark:text-slate-100 text-sm">
+            <span>{f.question}</span>
+            <span class="ml-4 shrink-0 rounded-full border border-slate-200 p-1 text-slate-400 group-open:rotate-180 dark:border-slate-700 transition">
+              <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </span>
+          </summary>
+          <div class="mt-3 text-xs sm:text-sm leading-relaxed text-slate-600 dark:text-slate-300 border-t border-slate-100 pt-3 dark:border-slate-800">
+            {f.answer}
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+</Layout>
