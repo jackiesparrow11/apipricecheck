@@ -8,6 +8,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "verify": "bun run scripts/verify-pricing-integrity.ts",
+    "monitor": "bun run scripts/monitor/pipeline.ts",
+    "monitor:apply": "bun run scripts/monitor/pipeline.ts --apply",
     "sync-data": "bun run scripts/sync-pricing.ts"
   },
   "dependencies": {
