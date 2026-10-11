@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 import { getProvidersList } from '../data/models';
 
 export const GET: APIRoute = async () => {
-  const siteUrl = 'https://apipricecompare.com';
+  const siteUrl = 'https://apipricecheck.com';
   const today = new Date().toISOString().split('T')[0];
   const providers = getProvidersList();
 

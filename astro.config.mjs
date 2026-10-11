@@ -4,7 +4,7 @@ import preact from '@astrojs/preact';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://apipricecompare.com',
+  site: 'https://apipricecheck.com',
   output: 'static',
   integrations: [
     tailwind({

@@ -9,8 +9,8 @@ export const GET: APIRoute = async () => {
       updatedAt: new Date().toISOString(),
       modelsCount: models.length,
       license: 'https://creativecommons.org/licenses/by/4.0/',
-      attribution: 'APIPriceCheck (https://apipricecompare.com)',
-      documentation: 'https://apipricecompare.com/api/pricing.json',
+      attribution: 'APIPriceCheck (https://apipricecheck.com)',
+      documentation: 'https://apipricecheck.com/api/pricing.json',
     },
     data: models,
   };
