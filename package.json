@@ -7,6 +7,7 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "verify": "bun run scripts/verify-pricing-integrity.ts",
     "sync-data": "bun run scripts/sync-pricing.ts"
   },
   "dependencies": {

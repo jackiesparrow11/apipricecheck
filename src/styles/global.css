@@ -22,14 +22,14 @@
   }
 }
 
-/* 粘性表格与无缝滚动支持 */
+/* Sticky table with horizontal overflow support */
 .table-container {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   container-type: inline-size;
 }
 
-/* 自定义现代滚动条 */
+/* Custom sleek scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
