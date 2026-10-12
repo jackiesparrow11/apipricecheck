@@ -9,18 +9,22 @@ const allModels = getAllModels();
 const topModels = getTopHomepageModels(20);
 const todayDate = new Date().toISOString().split('T')[0];
 
+const cheapestModel = [...topModels].sort((a, b) => a.officialPricing.inputPerM - b.officialPricing.inputPerM)[0] || topModels[0];
+const topCodingModel = topModels.find((m) => m.creator === 'anthropic') || topModels[1];
+const topReasoningModel = topModels.find((m) => m.creator === 'openai') || topModels[0];
+
 const faqItems = [
   {
     q: 'What is the cheapest LLM API currently available in 2026?',
-    a: 'The cheapest production-grade model is Llama 3.1 8B Instruct (via DeepInfra / OpenRouter) at $0.02 per million input tokens. Among frontier models, DeepSeek V3 is the price-performance leader at $0.14/1M input and $0.28/1M output, followed by GPT-4o mini at $0.15/1M input.',
+    a: `The lowest price per token among frontier models is ${cheapestModel?.name} ($${cheapestModel?.officialPricing.inputPerM.toFixed(2)}/1M input) followed by lightweight open-weights models ($0.02/1M input via OpenRouter).`,
   },
   {
     q: 'How does official provider pricing compare with aggregators like OpenRouter?',
-    a: 'While proprietary models (like GPT-4o or Claude 3.7) generally match official rates on aggregators, open-weights models (DeepSeek V3, Llama 3.3 70B, Qwen 2.5) frequently feature 15% to 40% lower token pricing on hosting aggregators (such as DeepInfra, Together AI, or Fireworks) compared to hyperscalers.',
+    a: 'While proprietary models generally match official rates on aggregators, open-weights models (DeepSeek, Llama, Qwen) frequently feature 15% to 40% lower token pricing on hosting aggregators (such as DeepInfra, Together AI, or Fireworks) compared to hyperscalers.',
   },
   {
     q: 'How does Prompt Caching impact my actual AI API bill?',
-    a: 'Prompt Caching allows providers to store repeated context (e.g. system instructions, document grounding) in memory. Cache hits reduce input costs by 50% on OpenAI (GPT-4o) and up to 90% on Anthropic (Claude 3.7 Sonnet: $0.30/1M cached vs $3.00/1M fresh) and DeepSeek ($0.014/1M cached).',
+    a: 'Prompt Caching allows providers to store repeated context in memory. Cache hits reduce input costs by 50% to 90% across OpenAI, Anthropic, Google Gemini, and DeepSeek endpoints.',
   },
   {
     q: 'How does this token cost calculator compute monthly estimates?',
@@ -39,7 +43,7 @@ const faqItems = [
 
 <Layout
   title="AI API Pricing Calculator — Compare 300+ LLM Token Rates"
-  description="Compare official & aggregator AI API token prices for 300+ models. Calculate monthly budgets for Claude 3.7, DeepSeek R1, GPT-4o, and Gemini 2.0."
+  description="Compare official & aggregator AI API token rates for 300+ models. Calculate monthly budgets for GPT-6.1, Claude 5.5, Gemini 4, DeepSeek V4, and Grok 4.7."
   faqItems={faqItems}
   models={topModels}
   isDataset={true}
@@ -66,19 +70,19 @@ const faqItems = [
         Simulate token budgets with Prompt Caching discounts across 300+ frontier and open-weights models.
       </p>
 
-      <!-- Quick Metrics Pills -->
+      <!-- Quick Metrics Pills (Data-Driven from Top Models) -->
       <div class="mt-8 flex flex-wrap items-center justify-center gap-4 text-xs">
         <div class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm">
           <span class="text-slate-400">Cheapest Frontier: </span>
-          <strong class="text-teal-300">DeepSeek V3 ($0.14/1M)</strong>
+          <strong class="text-teal-300">{cheapestModel.name} (${cheapestModel.officialPricing.inputPerM.toFixed(2)}/1M)</strong>
         </div>
         <div class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm">
           <span class="text-slate-400">Coding Standard: </span>
-          <strong class="text-cyan-300">Claude 3.7 Sonnet ($3.00/1M)</strong>
+          <strong class="text-cyan-300">{topCodingModel.name} (${topCodingModel.officialPricing.inputPerM.toFixed(2)}/1M)</strong>
         </div>
         <div class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 backdrop-blur-sm">
-          <span class="text-slate-400">Ultra-Long Context: </span>
-          <strong class="text-emerald-300">Gemini 2.0 Flash ($0.10/1M)</strong>
+          <span class="text-slate-400">Frontier Reasoning: </span>
+          <strong class="text-emerald-300">{topReasoningModel.name} (${topReasoningModel.officialPricing.inputPerM.toFixed(2)}/1M)</strong>
         </div>
       </div>
     </div>
@@ -87,7 +91,7 @@ const faqItems = [
   <!-- Section 1: Embedded Front-Loaded Calculator (P0 SEO Retention Driver) -->
   <section class="relative -mt-10 px-4 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-6xl">
-      <TokenCalculator client:load models={topModels} initialModelId="gpt-4o" embedded={true} />
+      <TokenCalculator client:load models={topModels} initialModelId={topModels[0]?.id || 'gpt-6.1-sol'} embedded={true} />
     </div>
   </section>
 

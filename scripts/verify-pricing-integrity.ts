@@ -15,6 +15,7 @@ import { readFileSync } from 'fs';
 import { resolve } from 'path';
 import { providersList } from '../src/data/providers';
 import { getAllSubscriptions } from '../src/data/subscriptions';
+import { getTopHomepageModels, MAINSTREAM_CREATORS } from '../src/data/models';
 import type { ModelRecord, HostingOffer } from '../src/data/types';
 
 interface VerificationResult {
@@ -28,6 +29,7 @@ interface VerificationResult {
     totalSubscriptionPlans: number;
     totalGeneratedRoutes: number;
   };
+  topHomepageModels: ModelRecord[];
   impactMap: Record<string, string[]>;
 }
 
@@ -54,6 +56,7 @@ function runVerification(targetModelId?: string, isStrict = false): Verification
         totalSubscriptionPlans: 0,
         totalGeneratedRoutes: 0,
       },
+      topHomepageModels: [],
       impactMap: {},
     };
   }
@@ -218,6 +221,18 @@ function runVerification(targetModelId?: string, isStrict = false): Verification
     impactMap[m.id] = affected;
   });
 
+  // 6. Validate Dynamic Top 20 Flagship Models Judgment Mechanism
+  const topHomepageModels = getTopHomepageModels(20, models);
+  if (topHomepageModels.length < 15) {
+    errors.push(`Dynamic top models selector returned insufficient models (${topHomepageModels.length} < 15).`);
+  }
+  for (const lab of MAINSTREAM_CREATORS) {
+    const hasLab = topHomepageModels.some((m) => m.creator === lab || m.provider === lab);
+    if (!hasLab) {
+      warnings.push(`Dynamic top models selector missing representation for lab: '${lab}'.`);
+    }
+  }
+
   return {
     errors,
     warnings,
@@ -229,6 +244,7 @@ function runVerification(targetModelId?: string, isStrict = false): Verification
       totalSubscriptionPlans,
       totalGeneratedRoutes,
     },
+    topHomepageModels,
     impactMap,
   };
 }
@@ -251,6 +267,14 @@ console.log(`  • Model Creators / Labs:         ${result.stats.totalCreators}`
 console.log(`  • Hosting / Relay Offers:        ${result.stats.totalHostingOffers}`);
 console.log(`  • Monitored Subscriptions:       ${result.stats.totalSubscriptions} services (${result.stats.totalSubscriptionPlans} plans)`);
 console.log(`  • Total Static Generated Routes: ${result.stats.totalGeneratedRoutes} URLs\n`);
+
+console.log('🏆 Real-Time Top 20 Flagship Models (Dynamic Judgment Algorithm):');
+result.topHomepageModels.forEach((m, idx) => {
+  console.log(
+    `  ${(idx + 1).toString().padStart(2)}. [${m.creatorName}] ${m.name.padEnd(25)} | Rel: ${m.releasedAt} | Tier: ${m.tier.padEnd(10)} | In: $${m.officialPricing.inputPerM}/1M · Out: $${m.officialPricing.outputPerM}/1M`
+  );
+});
+console.log();
 
 if (targetModelId) {
   const affected = result.impactMap[targetModelId];
